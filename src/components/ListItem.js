@@ -17,17 +17,27 @@ const styles = theme => ({
 
 class ListItem extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, item, updateListItem, deleteListItem } = this.props;
 
     return (
       <Grid container className={classes.root}>
         <Grid item xs={2} lg={1} >
           <div className={classes.icon}>
-            <Icon color="contrast">add_circle</Icon>
+            <Icon color="contrast">add</Icon>
           </div>
         </Grid>
         <Grid item xs={8} >
-          <Input placeholder='List Item' fullWidth />
+          <Input
+            placeholder='List Item'
+            fullWidth
+            value={item}
+            onChange={(event) => updateListItem(event.target.value)}
+          />
+        </Grid>
+        <Grid item xs={2} lg={1} >
+          <div className={classes.icon} onClick={deleteListItem}>
+            <Icon color="contrast">delete</Icon>
+          </div>
         </Grid>
       </Grid>
 
