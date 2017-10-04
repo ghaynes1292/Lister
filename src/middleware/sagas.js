@@ -65,7 +65,6 @@ function* maintainList() {
   try {
     const listItems = yield select(state => getSelectedListItems(state))
     if (!listItems.some((item) => item.text === '')) {
-      console.log('gonna add')
       yield put(addListItem())
     }
   } catch(e) {

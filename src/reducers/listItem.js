@@ -20,15 +20,20 @@ function listItem(state = initialState.listItems, action) {
         }
       }
     case UPDATE_LIST_ITEM:
-      console.log('in reducer', state, action)
       return {
         ...state,
         listItems: update(state.listItems, {
           [action.id]: { text: {$set: action.text} }
         })
       }
+    // case DELETE_LIST_ITEM:
+    //   return {
+    //     ...state,
+    //     listItems: update(state.listItems, {
+    //       [action.id]: { text: {$set: action.text} }
+    //     })
+    //   }
     case RECEIVE_CACHED_LIST_ITEMS:
-      console.log('recieved',action.listItems, initialState.listItems)
       return {
         ...initialState.listItems,
         ...action.listItems

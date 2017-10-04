@@ -1,13 +1,16 @@
 import update from 'immutability-helper';
+import indexOf from 'lodash/indexOf'
 
 import { initialState, makeList } from '../reducers'
+import { getDeleteindex } from './selectors';
 
 import {
   ADD_LIST,
   UPDATE_LIST_TITLE,
   DELETE_LIST,
   RECEIVE_CACHED_LISTS,
-  ADD_LIST_ITEM
+  ADD_LIST_ITEM,
+  DELETE_LIST_ITEM,
 } from '../actions';
 
 function list(state = initialState.lists, action) {
@@ -20,21 +23,19 @@ function list(state = initialState.lists, action) {
         }
       }
     case UPDATE_LIST_TITLE:
-      const returnVal = {
+      return {
         ...state,
         lists: update(state.lists, {
           [state.selectedList]: { title: {$set: action.title} }
         })
       }
-      console.log(returnVal)
-      return returnVal
     case RECEIVE_CACHED_LISTS:
       return {
         ...initialState.lists,
         ...action.lists
       }
     case ADD_LIST_ITEM:
-      const returnval = {
+      return {
         ...state,
         lists: update(state.lists, {
           [state.selectedList]: { listItems: {$set: [
@@ -43,8 +44,14 @@ function list(state = initialState.lists, action) {
           ]} }
         })
       }
-      console.log(returnval)
-      return returnval
+    case DELETE_LIST_ITEM:
+      return {
+        ...state,
+        lists: update(state.lists, {
+          [state.selectedList]: { listItems:
+            {$splice: [[indexOf(state.lists[state.selectedList].listItems, action.id), 1]]} }
+        })
+      }
     default:
       return state
   }

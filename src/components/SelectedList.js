@@ -16,13 +16,8 @@ const styles = theme => ({
 });
 
 class SelectedList extends Component {
-  updateListItem (id, item) {
-    const { addListItem, updateListItem, listItems } = this.props;
-    updateListItem(id, item);
-  }
-
   render() {
-    const { classes, list, listItems, updateListTitle } = this.props;
+    const { classes, list, listItems, updateListTitle, updateListItem, deleteListItem } = this.props;
     const { title } = list;
     return (
       <Grid container justify="center">
@@ -37,8 +32,8 @@ class SelectedList extends Component {
               <ListItem
                 key={item.id}
                 item={item}
-                updateListItem={(newItem) => this.updateListItem(item.id, newItem)}
-                deleteListItem={() => this.deleteListItem(index)}
+                updateListItem={(newItem) => updateListItem(item.id, newItem)}
+                deleteListItem={() => deleteListItem(item.id)}
               />
             )}
           </CardContent>
