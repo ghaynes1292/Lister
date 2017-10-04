@@ -38,7 +38,7 @@ function withRoot(BaseComponent) {
 
     render() {
       return (
-        <JssProvider registry={context.sheetsRegistry} jss={context.jss}>
+        <JssProvider registry={context.sheetsRegistry} Jss={context.jss}>
           <MuiThemeProvider theme={context.theme} sheetsManager={context.sheetsManager}>
             <AppWrapper>
               <BaseComponent />
