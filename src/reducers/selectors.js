@@ -2,4 +2,4 @@ import filter from 'lodash/filter'
 
 export const getSelectedList = (state) => state.lists.lists[state.lists.selectedList]
 export const getSelectedListItems = (state) =>
-  filter(state.listItems.listItems, (o) => getSelectedList(state).listItems.includes(o.id))
+  filter(state.listItems, (o) => getSelectedList(state).listItems.includes(o.id))

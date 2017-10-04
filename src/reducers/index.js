@@ -23,7 +23,7 @@ export const initialState = {
     selectedList: Object.keys(initialList)[0]
   },
   listItems: {
-    listItems: { ...initialListItem }
+    ...initialListItem
   }
 };
 

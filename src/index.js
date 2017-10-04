@@ -8,16 +8,24 @@ import createSagaMiddleware from 'redux-saga'
 import Index from './pages/index';
 import listStorageSaga from './middleware/sagas'
 import registerServiceWorker from './registerServiceWorker';
-import { fetchCachedLists, fetchCachedListItems } from './actions'
+import { fetchCachedLists, fetchCachedListItems, receiveCachedListItems, receiveCachedLists } from './actions'
+import { dbListItemRef, dbListRef } from './util/firebase';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)))
 
 sagaMiddleware.run(listStorageSaga);
-store.dispatch(fetchCachedListItems())
-store.dispatch(fetchCachedLists())
+
+dbListItemRef.on('value', function(snapshot) {
+  store.dispatch(receiveCachedListItems(snapshot.val()));
+});
+
+dbListRef.on('value', function(snapshot) {
+  store.dispatch(receiveCachedLists(snapshot.val()));
+});
 
 render(
   <Provider store={store}>
