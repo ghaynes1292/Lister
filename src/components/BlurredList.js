@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
 
 import TitleInput from './TitleInput';
 import ListItem from './ListItem';
@@ -16,10 +15,11 @@ const styles = theme => ({
   }),
 });
 
-class NewList extends Component {
+class BlurredList extends Component {
   constructor (props) {
     super(props);
     this.state = {
+      listTitle: '',
       listItems: ['']
     }
   }
@@ -40,16 +40,22 @@ class NewList extends Component {
     this.setState({ listItems: newList });
   }
 
+  updateTitle (title) {
+    this.setState({ listTitle: title })
+  }
 
   render() {
     const { classes } = this.props;
-    const { listItems } = this.state;
+    const { listItems, listTitle } = this.state;
     return (
       <Grid container justify="center">
-        <Grid item xs={8}>
+        <Grid item xs={11} lg={8}>
           <Card elevation={4}>
             <CardContent>
-            <TitleInput />
+            <TitleInput
+              title={listTitle}
+              updateTitle={(event) => this.updateTitle(event.target.value)}
+            />
             {listItems.map((item, index) =>
               <ListItem
                 key={index}
@@ -66,8 +72,8 @@ class NewList extends Component {
   }
 }
 
-NewList.propTypes = {
+BlurredList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NewList);
+export default withStyles(styles)(BlurredList);

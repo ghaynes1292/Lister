@@ -3,15 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.5.0",
+    "immutability-helper": "^2.4.0",
     "jss": "latest",
     "jss-preset-default": "latest",
+    "localforage": "^1.5.0",
+    "lodash": "^4.17.4",
     "material-ui": "next",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-jss": "latest",
+    "react-redux": "^5.0.6",
     "react-scripts": "latest",
-    "recompose": "latest"
+    "recompose": "latest",
+    "redux": "^3.7.2",
+    "redux-saga": "^0.15.6",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

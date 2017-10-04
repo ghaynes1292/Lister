@@ -9,7 +9,7 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-import NewList from '../components/NewList';
+import SelectedListContainer from '../containers/SelectedListContainer';
 
 const styles = {
   root: {
@@ -29,7 +29,7 @@ class Index extends Component {
            <Typography type="display1" align='center' gutterBottom>
              Lister
            </Typography>
-           <NewList />
+           <SelectedListContainer />
         </Grid>
        </Grid>
      </div>
