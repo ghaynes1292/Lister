@@ -1,4 +1,5 @@
 import uuidv4 from 'uuid/v4';
+import moment from 'moment';
 
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const UPDATE_LIST_ITEM = 'UPDATE_LIST_ITEM';
@@ -22,7 +23,7 @@ export const fetchCachedListItems = () => ({ type: FETCH_CACHED_LIST_ITEMS })
 export const receiveCachedListItems = listItems => ({ type: RECEIVE_CACHED_LIST_ITEMS, listItems })
 
 export function addListItem() {
-  return { type: ADD_LIST_ITEM, id: uuidv4() }
+  return { type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format() }
 }
 
 export function deleteListItem(id) {

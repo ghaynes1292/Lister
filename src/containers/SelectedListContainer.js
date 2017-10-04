@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 import SelectedList from '../components/SelectedList'
 
 import { updateListTitle, updateListItem, deleteListItem } from '../actions'
-import { getSelectedList, getSelectedListItems } from '../reducers/selectors';
+import { getSelectedList, sortedListItems } from '../reducers/selectors';
 
 const mapStateToProps = state => {
+  console.log('list', sortedListItems(state))
   return {
     list: getSelectedList(state),
-    listItems: getSelectedListItems(state)
+    listItems: sortedListItems(state)
   }
 }
 

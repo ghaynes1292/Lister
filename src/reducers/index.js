@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import uuidv4 from 'uuid/v4';
+import moment from 'moment';
 
 import lists from './list';
 import listItems from './listItem';
@@ -11,11 +12,11 @@ export const makeList = (item = null) => ({
   }
 });
 
-export const makeListItem = (id) => {
-  return { [id]: { id, text: '' } };
+export const makeListItem = (id, createdAt) => {
+  return { [id]: { id, text: '', createdAt } };
 }
 
-const initialListItem = makeListItem(uuidv4());
+const initialListItem = makeListItem(uuidv4(), moment().format());
 const initialList = makeList(initialListItem);
 export const initialState = {
   lists: {

@@ -14,7 +14,7 @@ function listItem(state = initialState.listItems, action) {
     case ADD_LIST_ITEM:
       return {
         ...state,
-        ...makeListItem(action.id)
+        ...makeListItem(action.id, action.createdAt)
       }
     case UPDATE_LIST_ITEM:
       return update(state, {
