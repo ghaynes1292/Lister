@@ -34,11 +34,16 @@ function renderInput(inputProps) {
 }
 
 function renderSuggestion(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion.label, query);
-  const parts = parse(suggestion.label, matches);
-
+  const matches = match(suggestion.title, query);
+  const parts = parse(suggestion.title, matches);
+  console.log('suggestion', suggestion)
   return (
     <MenuItem selected={isHighlighted} component="div">
+      {suggestion.poster &&
+        <img
+          src={suggestion.poster}
+          style={{ width: '48px', height: '48px', paddingRight: '10px' }}
+        />}
       <div>
         {parts.map((part, index) => {
           return part.highlight ? (
@@ -51,6 +56,10 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
             </strong>
           );
         })}
+        <br />
+        <span style={{ fontWeight: 300 }}>
+          {suggestion.star}&nbsp;({suggestion.year})
+        </span>
       </div>
     </MenuItem>
   );
@@ -67,7 +76,7 @@ function renderSuggestionsContainer(options) {
 }
 
 function getSuggestionValue(suggestion) {
-  return suggestion.label;
+  return suggestion.title;
 }
 
 function getSuggestions(value, suggestions) {
@@ -79,7 +88,7 @@ function getSuggestions(value, suggestions) {
     ? []
     : suggestions.filter(suggestion => {
         const keep =
-          count < 5 && suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
+          count < 5 && suggestion.title.toLowerCase().slice(0, inputLength) === inputValue;
 
         if (keep) {
           count += 1;
@@ -129,12 +138,18 @@ class IntegrationAutosuggest extends React.Component {
       loading: true
     })
     apiFetchSuggestions(value)
-    .then((response) => (
+    .then((response) => {
+      console.log('response', response)
       this.setState({
-        suggestions: response.d.map((suggestions) => ({ label: suggestions.l })),
+        suggestions: response.d.map((suggestion) => ({
+          title: suggestion.l,
+          year: suggestion.y,
+          star: suggestion.s,
+          poster: suggestion.i && suggestion.i[0]
+        })),
         loading: false
       })
-    ))
+    })
   };
 
   handleSuggestionsClearRequested = () => {
