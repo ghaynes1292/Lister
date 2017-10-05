@@ -1,7 +1,8 @@
 export const apiFetchSuggestions = (text) => {
+  const lowerCase = text.toLowerCase()
   return new Promise(resolve => {
     const xmlhttp = new XMLHttpRequest();
-    const url = `https://cors-anywhere.herokuapp.com/sg.media-imdb.com/suggests/${text.charAt(0)}/${text}.json`;
+    const url = `https://cors-anywhere.herokuapp.com/sg.media-imdb.com/suggests/${lowerCase.charAt(0)}/${lowerCase}.json`;
 
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
