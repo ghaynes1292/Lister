@@ -31,15 +31,10 @@ class ListItem extends React.Component {
           </div>
         </Grid>
         <Grid item xs={10} >
-          {this.props.autoComplete
-            ? <AutocompleteList suggestList={this.props.requestSuggestions}/>
-            : <Input
-              placeholder='List Item'
-              fullWidth
-              value={item.text}
-              onChange={(event) => updateListItem(event.target.value)}
-            />
-          }
+          <AutocompleteList
+            updateListItem={(value) => updateListItem(value)}
+            value={item.text}
+          />
         </Grid>
         <Grid item xs={1} lg={1} >
           <div className={classes.deleteIcon} onClick={deleteListItem}>

@@ -6,7 +6,6 @@ import { updateListTitle, updateListItem, deleteListItem, clearList } from '../a
 import { getSelectedList, sortedListItems } from '../reducers/selectors';
 
 const mapStateToProps = state => {
-  console.log('list', sortedListItems(state))
   return {
     list: getSelectedList(state),
     listItems: sortedListItems(state),

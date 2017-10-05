@@ -7,23 +7,29 @@ import { MenuItem } from 'material-ui/Menu';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { withStyles } from 'material-ui/styles';
+import { LinearProgress } from 'material-ui/Progress';
+
+import { apiFetchSuggestions } from '../util/api';
 
 function renderInput(inputProps) {
   const { classes, autoFocus, value, ref, ...other } = inputProps;
-
   return (
-    <TextField
-      autoFocus={autoFocus}
-      className={classes.textField}
-      value={value}
-      inputRef={ref}
-      InputProps={{
-        classes: {
-          input: classes.input,
-        },
-        ...other,
-      }}
-    />
+    <div>
+      <TextField
+        autoFocus={autoFocus}
+        className={classes.textField}
+        placeholder='List Element'
+        value={value}
+        inputRef={ref}
+        InputProps={{
+          classes: {
+            input: classes.input,
+          },
+          ...other,
+        }}
+      />
+      {other.disableUnderline && <LinearProgress className={classes.progressBar} />}
+    </div>
   );
 }
 
@@ -87,7 +93,6 @@ const styles = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
-    height: 200,
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -95,6 +100,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 3,
     left: 0,
     right: 0,
+    zIndex: 2
   },
   suggestion: {
     display: 'block',
@@ -107,18 +113,28 @@ const styles = theme => ({
   textField: {
     width: '100%',
   },
+  progressBar: {
+    height: '2px'
+  }
 });
 
 class IntegrationAutosuggest extends React.Component {
   state = {
-    value: '',
     suggestions: [],
+    loading: false
   };
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value, this.props.suggestList),
-    });
+      loading: true
+    })
+    apiFetchSuggestions(value)
+    .then((response) => (
+      this.setState({
+        suggestions: response.d.map((suggestions) => ({ label: suggestions.l })),
+        loading: false
+      })
+    ))
   };
 
   handleSuggestionsClearRequested = () => {
@@ -128,13 +144,12 @@ class IntegrationAutosuggest extends React.Component {
   };
 
   handleChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue,
-    });
+    this.props.updateListItem(newValue)
+    this.handleSuggestionsClearRequested()
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, value } = this.props;
 
     return (
       <Autosuggest
@@ -152,11 +167,11 @@ class IntegrationAutosuggest extends React.Component {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: true,
+          autoFocus: false,
           classes,
-          placeholder: 'Search a country (start with a)',
-          value: this.state.value,
+          value: value,
           onChange: this.handleChange,
+          disableUnderline: this.state.loading
         }}
       />
     );

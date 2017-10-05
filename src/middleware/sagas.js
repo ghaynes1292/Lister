@@ -114,19 +114,10 @@ function* dispatchFetch() {
   }
 }
 
-function* makeFetchSuggestionsCall({ text }) {
-  yield put(fetchSuggestions(text))
-}
-
-function* fetchSuggestionsSaga() {
-  yield takeLatest(UPDATE_LIST_ITEM, makeFetchSuggestionsCall)
-}
-
 export default function* rootSaga() {
   yield all([
     fork(listStorageSaga),
     fork(listElementSaga),
     fork(firebaseStorageSaga),
-    fork(fetchSuggestionsSaga),
   ])
 }

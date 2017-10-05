@@ -29,7 +29,6 @@ class SelectedList extends Component {
       requestSuggestions
     } = this.props;
     const { title } = list;
-    console.log('requestStatus', requestStatus)
     return (
       <Grid container justify="center">
         <Grid item xs={11} lg={8}>
@@ -46,16 +45,7 @@ class SelectedList extends Component {
                   <Icon onClick={() => clearList()} color="contrast">clear</Icon>
                 </Grid>
               </Grid>
-              {listItems.length > 0 &&<ListItem
-                key={listItems[0].id}
-                item={listItems[0]}
-                updateListItem={(newItem) => updateListItem(listItems[0].id, newItem)}
-                deleteListItem={() => deleteListItem(listItems[0].id)}
-                request={requestSuggestions}
-                autoComplete
-                requestSuggestions={requestSuggestions}
-              />}
-              {listItems.slice(1).map((item, index) =>
+              {listItems.map((item, index) =>
                 <ListItem
                   key={item.id}
                   item={item}
