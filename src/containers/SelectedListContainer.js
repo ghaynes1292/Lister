@@ -2,14 +2,18 @@ import { connect } from 'react-redux'
 
 import SelectedList from '../components/SelectedList'
 
-import { updateListTitle, updateListItem, deleteListItem } from '../actions'
+import { updateListTitle, updateListItem, deleteListItem, clearList } from '../actions'
 import { getSelectedList, sortedListItems } from '../reducers/selectors';
 
 const mapStateToProps = state => {
   console.log('list', sortedListItems(state))
   return {
     list: getSelectedList(state),
-    listItems: sortedListItems(state)
+    listItems: sortedListItems(state),
+    requestStatus: state.request,
+    requestSuggestions: state.request.body
+      ? state.request.body.map((suggestions) => ({ label: suggestions.l }))
+      : []
   }
 }
 
@@ -23,6 +27,9 @@ const mapDispatchToProps = dispatch => {
     },
     deleteListItem: (id) => {
       dispatch(deleteListItem(id))
+    },
+    clearList: () => {
+      dispatch(clearList())
     }
   }
 }

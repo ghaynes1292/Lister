@@ -8,6 +8,7 @@ import {
   ADD_LIST,
   UPDATE_LIST_TITLE,
   DELETE_LIST,
+  CLEAR_LIST,
   RECEIVE_CACHED_LISTS,
   ADD_LIST_ITEM,
   DELETE_LIST_ITEM,
@@ -29,6 +30,8 @@ function list(state = initialState.lists, action) {
           [state.selectedList]: { title: {$set: action.title} }
         })
       }
+    case CLEAR_LIST:
+      return initialState.lists
     case RECEIVE_CACHED_LISTS:
       return {
         ...initialState.lists,

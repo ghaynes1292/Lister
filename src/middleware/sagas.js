@@ -1,4 +1,4 @@
-import { takeEvery, select, put, fork, all } from 'redux-saga/effects';
+import { takeLatest, takeEvery, select, put, fork, all } from 'redux-saga/effects';
 import { saveLists, getLists, saveListItems, getListItems } from '../util/storageUtil';
 import { fbPersistLists, fbPersistListItems } from '../util/firebase';
 import {
@@ -12,7 +12,8 @@ import {
   FETCH_CACHED_LIST_ITEMS,
   receiveCachedLists,
   receiveCachedListItems,
-  addListItem
+  addListItem,
+  fetchSuggestions
 } from '../actions'
 
 import { getSelectedList, getSelectedListItems } from '../reducers/selectors';
@@ -104,10 +105,28 @@ function* firebaseStorageSaga() {
   ]
 }
 
+function* dispatchFetch() {
+  try {
+    const lists = yield select(state => state.lists)
+    fbPersistLists(lists)
+  } catch(e) {
+    yield e
+  }
+}
+
+function* makeFetchSuggestionsCall({ text }) {
+  yield put(fetchSuggestions(text))
+}
+
+function* fetchSuggestionsSaga() {
+  yield takeLatest(UPDATE_LIST_ITEM, makeFetchSuggestionsCall)
+}
+
 export default function* rootSaga() {
   yield all([
     fork(listStorageSaga),
     fork(listElementSaga),
     fork(firebaseStorageSaga),
+    fork(fetchSuggestionsSaga),
   ])
 }

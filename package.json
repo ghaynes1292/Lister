@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "autosuggest-highlight": "^3.1.0",
     "firebase": "^4.5.0",
     "immutability-helper": "^2.4.0",
     "jss": "latest",
@@ -12,12 +13,14 @@
     "material-ui": "next",
     "prop-types": "latest",
     "react": "latest",
+    "react-autosuggest": "^9.3.2",
     "react-dom": "latest",
     "react-jss": "latest",
     "react-redux": "^5.0.6",
     "react-scripts": "latest",
     "recompose": "latest",
     "redux": "^3.7.2",
+    "redux-promise-middleware": "^4.4.1",
     "redux-saga": "^0.15.6",
     "uuid": "^3.1.0"
   },

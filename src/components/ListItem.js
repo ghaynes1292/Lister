@@ -5,6 +5,8 @@ import Grid from 'material-ui/Grid';
 import Input from 'material-ui/Input';
 import Icon from 'material-ui/Icon';
 
+import AutocompleteList from './AutocompleteList';
+
 const styles = theme => ({
   root: {
     marginTop: 10,
@@ -29,16 +31,19 @@ class ListItem extends React.Component {
           </div>
         </Grid>
         <Grid item xs={10} >
-          <Input
-            placeholder='List Item'
-            fullWidth
-            value={item.text}
-            onChange={(event) => updateListItem(event.target.value)}
-          />
+          {this.props.autoComplete
+            ? <AutocompleteList suggestList={this.props.requestSuggestions}/>
+            : <Input
+              placeholder='List Item'
+              fullWidth
+              value={item.text}
+              onChange={(event) => updateListItem(event.target.value)}
+            />
+          }
         </Grid>
         <Grid item xs={1} lg={1} >
           <div className={classes.deleteIcon} onClick={deleteListItem}>
-            <Icon color="contrast">delete</Icon>
+            <Icon color="contrast">remove</Icon>
           </div>
         </Grid>
       </Grid>
