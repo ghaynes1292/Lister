@@ -38,7 +38,7 @@ class ListItem extends React.Component {
         </Grid>
         <Grid item xs={1} lg={1} >
           <div className={classes.deleteIcon} onClick={deleteListItem}>
-            <Icon color="contrast">remove</Icon>
+            <Icon color="contrast">clear</Icon>
           </div>
         </Grid>
       </Grid>

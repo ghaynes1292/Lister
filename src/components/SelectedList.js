@@ -42,7 +42,7 @@ class SelectedList extends Component {
                   />
                 </Grid>
                 <Grid item xs={1} lg={2} >
-                  <Icon onClick={() => clearList()} color="contrast">clear</Icon>
+                  <Icon onClick={() => clearList()} color="contrast">delete_sweep</Icon>
                 </Grid>
               </Grid>
               {listItems.map((item, index) =>
