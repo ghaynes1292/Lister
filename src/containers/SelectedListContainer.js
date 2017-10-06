@@ -33,9 +33,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const VisibleTodoList = connect(
+const SelectedListContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SelectedList)
 
-export default VisibleTodoList
+export default SelectedListContainer

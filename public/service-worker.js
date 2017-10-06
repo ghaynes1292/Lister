@@ -1,8 +1,9 @@
+const pjson = require('../package.json');
 // Set this to true for production
 var doCache = false;
 
 // Name our cache
-var CACHE_NAME = 'my-pwa-cache-v2';
+var CACHE_NAME = `my-pwa-cache-${pjson.version}`;
 
 // Delete old caches that are not our current one!
 self.addEventListener("activate", event => {

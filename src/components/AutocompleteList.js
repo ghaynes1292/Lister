@@ -36,7 +36,7 @@ function renderInput(inputProps) {
 function renderSuggestion(suggestion, { query, isHighlighted }) {
   const matches = match(suggestion.title, query);
   const parts = parse(suggestion.title, matches);
-  console.log('suggestion', suggestion)
+
   return (
     <MenuItem selected={isHighlighted} component="div">
       {suggestion.poster &&
@@ -139,7 +139,6 @@ class IntegrationAutosuggest extends React.Component {
     })
     apiFetchSuggestions(value)
     .then((response) => {
-      console.log('response', response)
       this.setState({
         suggestions: response.d.map((suggestion) => ({
           title: suggestion.l,

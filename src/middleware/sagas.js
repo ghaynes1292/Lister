@@ -13,6 +13,7 @@ import {
   receiveCachedLists,
   receiveCachedListItems,
   addListItem,
+  deleteListItem,
   fetchSuggestions
 } from '../actions'
 
@@ -63,11 +64,14 @@ function* listStorageSaga() {
   ]
 }
 
-function* maintainList() {
+function* maintainList(action) {
   try {
     const listItems = yield select(state => getSelectedListItems(state))
     if (!listItems.some((item) => item.text === '')) {
       yield put(addListItem())
+    }
+    if (action.text === '') {
+      yield put(deleteListItem(action.id))
     }
   } catch(e) {
     yield e
@@ -76,7 +80,7 @@ function* maintainList() {
 
 function* listElementSaga() {
   yield [
-    takeEvery([UPDATE_LIST_ITEM, DELETE_LIST_ITEM], maintainList)
+    takeEvery([UPDATE_LIST_ITEM], maintainList)
   ]
 }
 
