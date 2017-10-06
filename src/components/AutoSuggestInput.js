@@ -19,6 +19,7 @@ function renderInput(inputProps) {
         autoFocus={autoFocus}
         className={classes.textField}
         placeholder='List Element'
+        multiline
         value={value}
         inputRef={ref}
         InputProps={{
