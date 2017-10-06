@@ -10,8 +10,11 @@ class TitleInput extends React.Component {
   render() {
     const { title, updateTitle } = this.props;
 
-    return <Input placeholder='Title'
-      fullWidth value={title}
+    return <Input
+      multiline
+      placeholder='Title'
+      fullWidth
+      value={title}
       onChange={updateTitle}
     />
   }

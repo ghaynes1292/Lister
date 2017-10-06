@@ -7,13 +7,13 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
 import SelectedListContainer from '../containers/SelectedListContainer';
-import BlurredListContainer from '../containers/BlurredListContainer';
 import AddListContainer from '../containers/AddListContainer';
 
+import ListDrawer from '../components/ListDrawer'
 const styles = {
   root: {
     flexGrow: 1,
-    marginTop: 30,
+    height: '100%',
   },
 };
 
@@ -23,25 +23,24 @@ class Index extends Component {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs={3} />
-          <Grid item xs={6}>
-            <Typography type="display1" align='center' gutterBottom>
-              My List
-            </Typography>
+        <ListDrawer >
+          <Grid container spacing={24}>
+            <Grid item xs={3} />
+            <Grid item xs={6}>
+              <Typography type="display1" align='center' gutterBottom>
+                My List
+              </Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <div align='center'>
+                <AddListContainer />
+              </div>
+            </Grid>
+            <Grid item xs={12}>
+              <SelectedListContainer />
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <div align='center'>
-              <AddListContainer />
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <SelectedListContainer />
-          </Grid>
-        </Grid>
-        <Grid container spacing={24}>
-          <BlurredListContainer />
-        </Grid>
+        </ListDrawer>
       </div>
     );
   }

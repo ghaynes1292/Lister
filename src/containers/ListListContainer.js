@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import BlurredList from '../components/BlurredList'
+import ListList from '../components/ListList'
 
 import { selectList } from '../actions'
 
@@ -18,9 +18,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const BlurredListContainer = connect(
+const ListListContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(BlurredList)
+)(ListList)
 
-export default BlurredListContainer
+export default ListListContainer
