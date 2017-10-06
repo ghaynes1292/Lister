@@ -4,12 +4,11 @@ import moment from 'moment';
 
 import lists from './list';
 import listItems from './listItem';
-import request from './request';
 
 export const makeList = (item = null) => ({
   [uuidv4()]: {
     title: '',
-    listItems: [Object.keys(item)[0]]
+    listItems: item ? [Object.keys(item)[0]] : []
   }
 });
 
@@ -32,7 +31,6 @@ export const initialState = {
 const rootReducer = combineReducers({
   listItems,
   lists,
-  request
 })
 
 export default rootReducer

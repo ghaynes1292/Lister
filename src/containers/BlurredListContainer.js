@@ -2,27 +2,25 @@ import { connect } from 'react-redux'
 
 import BlurredList from '../components/BlurredList'
 
-import { updateListTitle, updateListItem, deleteListItem, clearList } from '../actions'
-import { getSelectedList, sortedListItems } from '../reducers/selectors';
+import { selectList } from '../actions'
 
 const mapStateToProps = state => {
   return {
-    list: getSelectedList(state),
-    listItems: sortedListItems(state),
+    lists: state.lists.lists,
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     updateListTitle: (title) => {
-//       dispatch(updateListTitle(title))
-//     },
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    selectList: (id) => {
+      dispatch(selectList(id))
+    },
+  }
+}
 
 const BlurredListContainer = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(BlurredList)
 
 export default BlurredListContainer

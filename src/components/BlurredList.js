@@ -5,8 +5,7 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
-import TitleInput from './TitleInput';
-import ListItem from './ListItem';
+import BlurredListItem from './BlurredListItem';
 
 const styles = theme => ({
   title: {
@@ -20,23 +19,13 @@ const styles = theme => ({
 
 class BlurredList extends Component {
   render() {
-    const { classes, listItems, list } = this.props;
-    console.log(listItems)
-    return (
-      <Grid container justify='center'>
-        <Grid item xs={10} lg={8}>
-          <Paper elevation={2} className={classes.paper}>
-            <Grid container spacing={24}>
-              <Grid item xs={12}>
-                <Typography type='title' className={classes.title}>
-                  {list.title}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-      </Grid>
-    );
+    const { classes, lists, selectList } = this.props;
+    return Object.keys(lists).map((list) =>
+      <BlurredListItem
+        id={list}
+        title={lists[list].title}
+        selectList={selectList}
+      />)
   }
 }
 

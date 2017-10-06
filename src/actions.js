@@ -13,6 +13,7 @@ export const ADD_LIST = 'ADD_LIST';
 export const UPDATE_LIST_TITLE = 'UPDATE_LIST_TITLE';
 export const DELETE_LIST = 'DELETE_LIST';
 export const CLEAR_LIST = 'CLEAR_LIST';
+export const SELECT_LIST = 'SELECT_LIST';
 export const FETCH_CACHED_LISTS = 'FETCH_CACHED_LISTS'
 export const RECEIVE_CACHED_LISTS = 'RECEIVE_CACHED_LISTS'
 
@@ -50,6 +51,10 @@ export function deleteList(id) {
 
 export function clearList() {
   return { type: CLEAR_LIST }
+}
+
+export function selectList(id) {
+  return { type: SELECT_LIST, id }
 }
 
 export function updateListTitle(title) {

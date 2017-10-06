@@ -11,6 +11,7 @@ import Typography from 'material-ui/Typography';
 
 import SelectedListContainer from '../containers/SelectedListContainer';
 import BlurredListContainer from '../containers/BlurredListContainer';
+import AddListContainer from '../containers/AddListContainer';
 
 const styles = {
   root: {
@@ -26,23 +27,23 @@ class Index extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
-          <Grid item xs={12}>
+          <Grid item xs={3} />
+          <Grid item xs={6}>
             <Typography type="display1" align='center' gutterBottom>
               My List
             </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <div align='center'>
+              <AddListContainer />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
             <SelectedListContainer />
           </Grid>
         </Grid>
         <Grid container spacing={24}>
-          <Grid item xs={6} lg={4}>
-            <BlurredListContainer />
-          </Grid>
-          <Grid item xs={6} lg={4}>
-            <BlurredListContainer />
-          </Grid>
-          <Grid item xs={6} lg={4}>
-            <BlurredListContainer />
-          </Grid>
+          <BlurredListContainer />
         </Grid>
       </div>
     );

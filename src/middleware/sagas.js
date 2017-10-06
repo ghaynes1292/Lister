@@ -80,7 +80,7 @@ function* maintainList(action) {
 
 function* listElementSaga() {
   yield [
-    takeEvery([UPDATE_LIST_ITEM], maintainList)
+    takeEvery([UPDATE_LIST_ITEM, ADD_LIST], maintainList)
   ]
 }
 

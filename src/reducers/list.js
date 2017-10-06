@@ -9,6 +9,7 @@ import {
   UPDATE_LIST_TITLE,
   DELETE_LIST,
   CLEAR_LIST,
+  SELECT_LIST,
   RECEIVE_CACHED_LISTS,
   ADD_LIST_ITEM,
   DELETE_LIST_ITEM,
@@ -17,10 +18,13 @@ import {
 function list(state = initialState.lists, action) {
   switch (action.type) {
     case ADD_LIST:
+      const newList = makeList();
+      console.log(state, newList)
       return {
+        selectedList: Object.keys(newList)[0],
         lists: {
           ...state.lists,
-          ...makeList()
+          ...newList
         }
       }
     case UPDATE_LIST_TITLE:
@@ -31,7 +35,12 @@ function list(state = initialState.lists, action) {
         })
       }
     case CLEAR_LIST:
-      return initialState.lists
+      return state;
+    case SELECT_LIST:
+      return {
+        ...state,
+        selectedList: action.id
+      }
     case RECEIVE_CACHED_LISTS:
       return {
         ...initialState.lists,

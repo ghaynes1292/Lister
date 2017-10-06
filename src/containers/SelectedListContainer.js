@@ -8,11 +8,7 @@ import { getSelectedList, sortedListItems } from '../reducers/selectors';
 const mapStateToProps = state => {
   return {
     list: getSelectedList(state),
-    listItems: sortedListItems(state),
-    requestStatus: state.request,
-    requestSuggestions: state.request.body
-      ? state.request.body.map((suggestions) => ({ label: suggestions.l }))
-      : []
+    listItems: sortedListItems(state)
   }
 }
 
