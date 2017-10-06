@@ -92,10 +92,13 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 3,
     left: 0,
     right: 0,
+    minWidth: '300px',
+    maxHeight: '400px',
     zIndex: 2
   },
   suggestion: {
     display: 'block',
+
   },
   suggestionsList: {
     margin: 0,

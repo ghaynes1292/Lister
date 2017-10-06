@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import omit from 'lodash/omit'
 
 import { initialState, makeListItem } from '../reducers'
 
@@ -20,6 +21,8 @@ function listItem(state = initialState.listItems, action) {
       return update(state, {
         [action.id]: { text: {$set: action.text} }
       })
+    case DELETE_LIST_ITEM:
+      return omit(state, [action.id])
     case RECEIVE_CACHED_LIST_ITEMS:
       return action.listItems || initialState.listItems
     default:

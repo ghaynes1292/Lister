@@ -27,6 +27,7 @@ class SelectedList extends Component {
       clearList,
     } = this.props;
     const { title } = list;
+
     return (
       <Grid container justify="center">
         <Grid item xs={11} lg={8}>

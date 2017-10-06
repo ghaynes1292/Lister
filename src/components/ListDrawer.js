@@ -4,11 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import List from 'material-ui/List';
-import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
-import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
 
 import ListListContainer from '../containers/ListListContainer';
@@ -21,7 +18,6 @@ const styles = theme => ({
     height: '100%',
     marginTop: 0,
     zIndex: 1,
-    overflow: 'hidden',
   },
   appFrame: {
     position: 'relative',
@@ -81,7 +77,6 @@ class ListDrawer extends React.Component {
 
     const drawer = (
       <div className={classes.drawerContainer}>
-        <div className={classes.drawerHeader} />
         <ListListContainer toggleDrawer={this.handleDrawerToggle}/>
       </div>
     );

@@ -15,6 +15,9 @@ class TitleInput extends React.Component {
       placeholder='Title'
       fullWidth
       value={title}
+      inputProps={{
+        value: title
+      }}
       onChange={updateTitle}
     />
   }

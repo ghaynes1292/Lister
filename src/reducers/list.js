@@ -17,7 +17,6 @@ function list(state = initialState.lists, action) {
   switch (action.type) {
     case ADD_LIST:
       const newList = makeList();
-      console.log(state, newList)
       return {
         selectedList: Object.keys(newList)[0],
         lists: {
