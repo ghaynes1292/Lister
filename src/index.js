@@ -9,7 +9,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import Index from './pages/index';
 import listStorageSaga from './middleware/sagas'
 import registerServiceWorker from './registerServiceWorker';
-import { fetchCachedLists, fetchCachedListItems, receiveCachedListItems, receiveCachedLists } from './actions'
+import { receiveCachedListItems, receiveCachedLists } from './actions'
 import { dbListItemRef, dbListRef } from './util/firebase';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

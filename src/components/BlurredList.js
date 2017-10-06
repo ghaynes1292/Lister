@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
 
 import BlurredListItem from './BlurredListItem';
 
@@ -22,6 +19,7 @@ class BlurredList extends Component {
     const { classes, lists, selectList } = this.props;
     return Object.keys(lists).map((list) =>
       <BlurredListItem
+        key={list}
         id={list}
         title={lists[list].title}
         selectList={selectList}

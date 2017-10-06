@@ -42,7 +42,8 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
       {suggestion.poster &&
         <img
           src={suggestion.poster}
-          style={{ width: '48px', height: '48px', paddingRight: '10px' }}
+          alt=''
+          style={{ minWidth: '45px', minHeight: '45px', maxWidth: '45px', maxHeight: '45px', paddingRight: '10px' }}
         />}
       <div>
         {parts.map((part, index) => {
@@ -79,25 +80,6 @@ function getSuggestionValue(suggestion) {
   return suggestion.title;
 }
 
-function getSuggestions(value, suggestions) {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-  let count = 0;
-
-  return inputLength === 0
-    ? []
-    : suggestions.filter(suggestion => {
-        const keep =
-          count < 5 && suggestion.title.toLowerCase().slice(0, inputLength) === inputValue;
-
-        if (keep) {
-          count += 1;
-        }
-
-        return keep;
-      });
-}
-
 const styles = theme => ({
   container: {
     flexGrow: 1,
@@ -127,7 +109,7 @@ const styles = theme => ({
   }
 });
 
-class IntegrationAutosuggest extends React.Component {
+class AutoSuggestInput extends React.Component {
   state = {
     suggestions: [],
     loading: false
@@ -192,8 +174,8 @@ class IntegrationAutosuggest extends React.Component {
   }
 }
 
-IntegrationAutosuggest.propTypes = {
+AutoSuggestInput.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IntegrationAutosuggest);
+export default withStyles(styles)(AutoSuggestInput);

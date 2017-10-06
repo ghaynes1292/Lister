@@ -2,12 +2,10 @@ import update from 'immutability-helper';
 import indexOf from 'lodash/indexOf'
 
 import { initialState, makeList } from '../reducers'
-import { getDeleteindex } from './selectors';
 
 import {
   ADD_LIST,
   UPDATE_LIST_TITLE,
-  DELETE_LIST,
   CLEAR_LIST,
   SELECT_LIST,
   RECEIVE_CACHED_LISTS,

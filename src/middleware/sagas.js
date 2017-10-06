@@ -1,4 +1,4 @@
-import { takeLatest, takeEvery, select, put, fork, all } from 'redux-saga/effects';
+import { takeEvery, select, put, fork, all } from 'redux-saga/effects';
 import { saveLists, getLists, saveListItems, getListItems } from '../util/storageUtil';
 import { fbPersistLists, fbPersistListItems } from '../util/firebase';
 import {
@@ -14,10 +14,9 @@ import {
   receiveCachedListItems,
   addListItem,
   deleteListItem,
-  fetchSuggestions
 } from '../actions'
 
-import { getSelectedList, getSelectedListItems } from '../reducers/selectors';
+import {  getSelectedListItems } from '../reducers/selectors';
 
 function* cacheLists() {
   try {
@@ -107,15 +106,6 @@ function* firebaseStorageSaga() {
     takeEvery([ADD_LIST_ITEM, UPDATE_LIST_ITEM, DELETE_LIST_ITEM], persistListItems),
     takeEvery([ADD_LIST, UPDATE_LIST_TITLE, DELETE_LIST, ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
   ]
-}
-
-function* dispatchFetch() {
-  try {
-    const lists = yield select(state => state.lists)
-    fbPersistLists(lists)
-  } catch(e) {
-    yield e
-  }
 }
 
 export default function* rootSaga() {

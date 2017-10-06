@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import Input from 'material-ui/Input';
 import Icon from 'material-ui/Icon';
 
-import AutocompleteList from './AutocompleteList';
+import AutoSuggestInput from './AutoSuggestInput';
 
 const styles = theme => ({
   root: {
@@ -31,7 +30,7 @@ class ListItem extends React.Component {
           </div>
         </Grid>
         <Grid item xs={10} >
-          <AutocompleteList
+          <AutoSuggestInput
             updateListItem={(value) => updateListItem(value)}
             value={item.text}
           />

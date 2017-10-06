@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import Icon from 'material-ui/Icon';
 
@@ -25,8 +25,6 @@ class SelectedList extends Component {
       updateListItem,
       deleteListItem,
       clearList,
-      requestStatus,
-      requestSuggestions
     } = this.props;
     const { title } = list;
     return (
@@ -51,7 +49,6 @@ class SelectedList extends Component {
                   item={item}
                   updateListItem={(newItem) => updateListItem(item.id, newItem)}
                   deleteListItem={() => deleteListItem(item.id)}
-                  request={requestSuggestions}
                 />
               )}
             </CardContent>
