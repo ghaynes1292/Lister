@@ -17,13 +17,20 @@ const styles = theme => ({
 });
 
 class SelectedList extends Component {
+  handleDelete(id) {
+    const { listItems, deleteListItem } = this.props;
+
+    if (listItems.length > 1) {
+      deleteListItem(id);
+    }
+  }
+
   render() {
     const { classes,
       list,
       listItems,
       updateListTitle,
       updateListItem,
-      deleteListItem,
       clearList,
     } = this.props;
     const { title } = list;
@@ -49,7 +56,7 @@ class SelectedList extends Component {
                   key={item.id}
                   item={item}
                   updateListItem={(newItem) => updateListItem(item.id, newItem)}
-                  deleteListItem={() => deleteListItem(item.id)}
+                  deleteListItem={() => this.handleDelete(item.id)}
                 />
               )}
             </CardContent>

@@ -1,6 +1,7 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import JssProvider from 'react-jss/lib/JssProvider';
 import { withStyles, MuiThemeProvider } from 'material-ui/styles';
 import wrapDisplayName from 'recompose/wrapDisplayName';
@@ -20,11 +21,15 @@ const styles = theme => ({
   },
 });
 
+const mapStateToProps = state => {
+  return {
+    theme: state.theme,
+  }
+}
+
 let AppWrapper = props => props.children;
 
 AppWrapper = withStyles(styles)(AppWrapper);
-
-const context = createContext();
 
 function withRoot(BaseComponent) {
   class WithRoot extends Component {
@@ -37,6 +42,7 @@ function withRoot(BaseComponent) {
     }
 
     render() {
+      const context = createContext(this.props.theme);
       return (
         <JssProvider registry={context.sheetsRegistry} Jss={context.jss}>
           <MuiThemeProvider theme={context.theme} sheetsManager={context.sheetsManager}>
@@ -53,7 +59,10 @@ function withRoot(BaseComponent) {
     WithRoot.displayName = wrapDisplayName(BaseComponent, 'withRoot');
   }
 
-  return WithRoot;
+  return connect(
+    mapStateToProps,
+    null
+  )(WithRoot);
 }
 
 export default withRoot;

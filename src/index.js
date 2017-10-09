@@ -9,8 +9,8 @@ import promiseMiddleware from 'redux-promise-middleware';
 import Index from './pages/index';
 import listStorageSaga from './middleware/sagas'
 import registerServiceWorker from './registerServiceWorker';
-import { receiveCachedListItems, receiveCachedLists } from './actions'
-import { dbListItemRef, dbListRef } from './util/firebase';
+import { receiveCachedListItems, receiveCachedLists, receiveCachedTheme } from './actions'
+import { dbListItemRef, dbListRef, dbThemeRef } from './util/firebase';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -26,6 +26,10 @@ dbListItemRef.on('value', function(snapshot) {
 
 dbListRef.on('value', function(snapshot) {
   store.dispatch(receiveCachedLists(snapshot.val()));
+});
+
+dbThemeRef.on('value', function(snapshot) {
+  store.dispatch(receiveCachedTheme(snapshot.val()));
 });
 
 render(

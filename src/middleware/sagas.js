@@ -1,6 +1,6 @@
 import { takeEvery, select, put, fork, all } from 'redux-saga/effects';
 import { saveLists, getLists, saveListItems, getListItems } from '../util/storageUtil';
-import { fbPersistLists, fbPersistListItems } from '../util/firebase';
+import { fbPersistLists, fbPersistListItems, fbPersistTheme } from '../util/firebase';
 import {
   ADD_LIST,
   ADD_LIST_ITEM,
@@ -10,8 +10,10 @@ import {
   DELETE_LIST_ITEM,
   FETCH_CACHED_LISTS,
   FETCH_CACHED_LIST_ITEMS,
+  UPDATE_PRIMARY_COLOR,
   receiveCachedLists,
   receiveCachedListItems,
+  receiveCachedTheme,
   addListItem,
   deleteListItem,
 } from '../actions'
@@ -83,15 +85,6 @@ function* listElementSaga() {
   ]
 }
 
-function* persistListItems() {
-  try {
-    const listItems = yield select(state => state.listItems)
-    fbPersistListItems(listItems)
-  } catch(e) {
-    yield e
-  }
-}
-
 function* persistLists() {
   try {
     const lists = yield select(state => state.lists)
@@ -101,10 +94,29 @@ function* persistLists() {
   }
 }
 
+function* persistListItems() {
+  try {
+    const listItems = yield select(state => state.listItems)
+    fbPersistListItems(listItems)
+  } catch(e) {
+    yield e
+  }
+}
+
+function* persistTheme() {
+  try {
+    const theme = yield select(state => state.theme)
+    fbPersistTheme(theme)
+  } catch(e) {
+    yield e
+  }
+}
+
 function* firebaseStorageSaga() {
   yield [
     takeEvery([ADD_LIST_ITEM, UPDATE_LIST_ITEM, DELETE_LIST_ITEM], persistListItems),
     takeEvery([ADD_LIST, UPDATE_LIST_TITLE, DELETE_LIST, ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
+    takeEvery([UPDATE_PRIMARY_COLOR], persistTheme),
   ]
 }
 

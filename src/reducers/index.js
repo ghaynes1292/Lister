@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux'
 import uuidv4 from 'uuid/v4';
 import moment from 'moment';
+import { orange, blueGrey } from 'material-ui/colors';
 
 import lists from './list';
 import listItems from './listItem';
+import theme from './theme'
 
 export const makeList = (item = null) => ({
   [uuidv4()]: {
-    title: '',
+    title: 'Title Goes here',
     listItems: item ? [Object.keys(item)[0]] : []
   }
 });
@@ -25,12 +27,19 @@ export const initialState = {
   },
   listItems: {
     ...initialListItem
+  },
+  theme: {
+    palette: {
+      primary: orange,
+      secondary: blueGrey,
+    }
   }
 };
 
 const rootReducer = combineReducers({
   listItems,
   lists,
+  theme
 })
 
 export default rootReducer

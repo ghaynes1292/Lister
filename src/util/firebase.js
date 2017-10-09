@@ -13,6 +13,7 @@ firebase.initializeApp(firebaseConfig)
 
 export const dbListItemRef = firebase.database().ref('listItems/');
 export const dbListRef = firebase.database().ref('lists/');
+export const dbThemeRef = firebase.database().ref('theme/');
 
 export const fbPersistListItems = (listItems) => {
   dbListItemRef.set(listItems);
@@ -20,4 +21,8 @@ export const fbPersistListItems = (listItems) => {
 
 export const fbPersistLists = (lists) => {
   dbListRef.set(lists);
+}
+
+export const fbPersistTheme = (theme) => {
+  dbThemeRef.set(theme);
 }

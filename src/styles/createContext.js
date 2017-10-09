@@ -4,14 +4,10 @@ import { create } from 'jss';
 import preset from 'jss-preset-default';
 import { SheetsRegistry } from 'react-jss/lib/jss';
 import { createMuiTheme } from 'material-ui/styles';
-import { orange, teal } from 'material-ui/colors';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: orange,
-    secondary: teal,
-  },
+const createTheme = (themeOptions) => createMuiTheme({
+  ...themeOptions
 });
 
 // Configure JSS
@@ -20,7 +16,8 @@ jss.options.createGenerateClassName = createGenerateClassName;
 
 export const sheetsManager = new Map();
 
-export default function createContext() {
+export default function createContext(themeOptions) {
+  const theme = createTheme(themeOptions)
   return {
     jss,
     theme,

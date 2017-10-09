@@ -9,6 +9,7 @@ import Hidden from 'material-ui/Hidden';
 import Icon from 'material-ui/Icon';
 
 import ListListContainer from '../containers/ListListContainer';
+import ThemeSelectionContainer from '../containers/ThemeSelectionContainer';
 
 const drawerWidth = 240;
 
@@ -77,6 +78,7 @@ class ListDrawer extends React.Component {
 
     const drawer = (
       <div className={classes.drawerContainer}>
+        <ThemeSelectionContainer />
         <ListListContainer toggleDrawer={this.handleDrawerToggle}/>
       </div>
     );
