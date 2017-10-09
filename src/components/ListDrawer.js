@@ -7,9 +7,13 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
 import Icon from 'material-ui/Icon';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 
 import ListListContainer from '../containers/ListListContainer';
 import ThemeSelectionContainer from '../containers/ThemeSelectionContainer';
+
+import { userSignIn } from '../util/firebase';
 
 const drawerWidth = 240;
 
@@ -34,7 +38,12 @@ const styles = theme => ({
       width: `calc(100% - ${drawerWidth}px)`,
     },
   },
+  appBarFlex: {
+    flex: 1,
+  },
   navIconHide: {
+    marginLeft: -12,
+    marginRight: 20,
     [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
@@ -96,7 +105,10 @@ class ListDrawer extends React.Component {
               >
                 <Icon color="contrast">menu</Icon>
               </IconButton>
-
+              <Typography type="title" color="inherit" className={classes.appBarFlex}>
+                Title
+              </Typography>
+              <Button color="contrast" onClick={() => userSignIn()}>Login</Button>
             </Toolbar>
           </AppBar>
           <Hidden lgUp>
