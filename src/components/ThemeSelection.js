@@ -27,6 +27,7 @@ class ColorPicker extends React.Component {
   }
 
   render() {
+    console.log('theme in component', this.props.theme)
     return (
       <div>
         <Button
@@ -38,7 +39,11 @@ class ColorPicker extends React.Component {
             <Grid item xs={11}>
               Select Primary Color
             </Grid>
-            <Grid item xs={1} style={{ background: this.props.theme.palette.primary[500] }} />
+            <Grid
+              item
+              xs={1}
+              style={{ background: this.props.theme.palette ? this.props.theme.palette.primary[500] : '' }}
+            />
           </Grid>
         </Button>
         <Menu

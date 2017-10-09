@@ -26,7 +26,7 @@ class ListItem extends React.Component {
       <Grid container className={classes.root}>
         <Grid item xs={1} lg={1} >
           <div className={classes.addIcon}>
-            <Icon color="contrast">add</Icon>
+            <Icon>add</Icon>
           </div>
         </Grid>
         <Grid item xs={10} >
@@ -37,7 +37,7 @@ class ListItem extends React.Component {
         </Grid>
         <Grid item xs={1} lg={1} >
           <div className={classes.deleteIcon} onClick={deleteListItem}>
-            <Icon color="contrast">clear</Icon>
+            <Icon>clear</Icon>
           </div>
         </Grid>
       </Grid>

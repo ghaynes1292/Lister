@@ -8,7 +8,7 @@ import {
   UPDATE_LIST_TITLE,
   CLEAR_LIST,
   SELECT_LIST,
-  RECEIVE_CACHED_LISTS,
+  RECEIVE_PERSISTED_LISTS,
   ADD_LIST_ITEM,
   DELETE_LIST_ITEM,
 } from '../actions';
@@ -38,7 +38,7 @@ function list(state = initialState.lists, action) {
         ...state,
         selectedList: action.id
       }
-    case RECEIVE_CACHED_LISTS:
+    case RECEIVE_PERSISTED_LISTS:
       return {
         ...initialState.lists,
         ...action.lists

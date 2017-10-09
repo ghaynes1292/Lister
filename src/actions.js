@@ -4,31 +4,27 @@ import moment from 'moment';
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const UPDATE_LIST_ITEM = 'UPDATE_LIST_ITEM';
 export const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM';
-export const FETCH_CACHED_LIST_ITEMS = 'FETCH_CACHED_LIST_ITEMS'
-export const RECEIVE_CACHED_LIST_ITEMS = 'RECEIVE_CACHED_LIST_ITEMS'
+export const RECEIVE_PERSISTED_LIST_ITEMS = 'RECEIVE_PERSISTED_LIST_ITEMS';
 
 export const ADD_LIST = 'ADD_LIST';
 export const UPDATE_LIST_TITLE = 'UPDATE_LIST_TITLE';
 export const DELETE_LIST = 'DELETE_LIST';
 export const CLEAR_LIST = 'CLEAR_LIST';
 export const SELECT_LIST = 'SELECT_LIST';
-export const FETCH_CACHED_LISTS = 'FETCH_CACHED_LISTS';
-export const RECEIVE_CACHED_LISTS = 'RECEIVE_CACHED_LISTS';
+export const RECEIVE_PERSISTED_LISTS = 'RECEIVE_PERSISTED_LISTS';
 
 export const UPDATE_PRIMARY_COLOR = 'UPDATE_PRIMARY_COLOR';
 export const UPDATE_SECONDARY_COLOR = 'UPDATE_SECONDARY_COLOR';
-export const RECEIVE_CACHED_THEME = 'RECEIVE_CACHED_THEME';
+export const RECEIVE_PERSISTED_THEME = 'RECEIVE_PERSISTED_THEME';
 
 /*
  * action creators
  */
-export const fetchCachedLists = () => ({ type: FETCH_CACHED_LISTS })
-export const receiveCachedLists = lists => ({ type: RECEIVE_CACHED_LISTS, lists })
+export const receivePersistedLists = lists => ({ type: RECEIVE_PERSISTED_LISTS, lists })
 
-export const fetchCachedListItems = () => ({ type: FETCH_CACHED_LIST_ITEMS })
-export const receiveCachedListItems = listItems => ({ type: RECEIVE_CACHED_LIST_ITEMS, listItems })
+export const receivePersistedListItems = listItems => ({ type: RECEIVE_PERSISTED_LIST_ITEMS, listItems })
 
-export const receiveCachedTheme = theme => ({ type: RECEIVE_CACHED_THEME, theme })
+export const receivePersistedTheme = theme => ({ type: RECEIVE_PERSISTED_THEME, theme })
 
 
 export function addListItem() {

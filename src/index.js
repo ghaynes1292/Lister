@@ -9,7 +9,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 import Index from './pages/index';
 import listStorageSaga from './middleware/sagas'
 import registerServiceWorker from './registerServiceWorker';
-import { receiveCachedListItems, receiveCachedLists, receiveCachedTheme } from './actions'
+import { receivePersistedListItems, receivePersistedLists, receivePersistedTheme } from './actions'
 import { dbListItemRef, dbListRef, dbThemeRef } from './util/firebase';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -21,15 +21,15 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMidd
 sagaMiddleware.run(listStorageSaga);
 
 dbListItemRef.on('value', function(snapshot) {
-  store.dispatch(receiveCachedListItems(snapshot.val()));
+  store.dispatch(receivePersistedListItems(snapshot.val()));
 });
 
 dbListRef.on('value', function(snapshot) {
-  store.dispatch(receiveCachedLists(snapshot.val()));
+  store.dispatch(receivePersistedLists(snapshot.val()));
 });
 
 dbThemeRef.on('value', function(snapshot) {
-  store.dispatch(receiveCachedTheme(snapshot.val()));
+  store.dispatch(receivePersistedTheme(snapshot.val()));
 });
 
 render(

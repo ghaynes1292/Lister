@@ -6,7 +6,9 @@ import { SheetsRegistry } from 'react-jss/lib/jss';
 import { createMuiTheme } from 'material-ui/styles';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 
-const createTheme = (themeOptions) => createMuiTheme({
+import { getTheme } from '../util/storageUtil';
+
+const createTheme = (themeOptions = getTheme()) => createMuiTheme({
   ...themeOptions
 });
 

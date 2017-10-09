@@ -6,7 +6,7 @@ import { convertColorToPalette } from '../util/colors';
 import {
   UPDATE_PRIMARY_COLOR,
   UPDATE_SECONDARY_COLOR,
-  RECEIVE_CACHED_THEME
+  RECEIVE_PERSISTED_THEME
 } from '../actions';
 
 function theme(state = initialState.theme, action) {
@@ -19,7 +19,7 @@ function theme(state = initialState.theme, action) {
       return update(state, {
         palette: { secondary: {$set: convertColorToPalette(action.color).palette} }
       })
-    case RECEIVE_CACHED_THEME:
+    case RECEIVE_PERSISTED_THEME:
       return action.theme || initialState.theme
     default:
       return state

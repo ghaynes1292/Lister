@@ -7,7 +7,7 @@ import {
   ADD_LIST_ITEM,
   UPDATE_LIST_ITEM,
   DELETE_LIST_ITEM,
-  RECEIVE_CACHED_LIST_ITEMS,
+  RECEIVE_PERSISTED_LIST_ITEMS,
 } from '../actions';
 
 function listItem(state = initialState.listItems, action) {
@@ -23,7 +23,7 @@ function listItem(state = initialState.listItems, action) {
       })
     case DELETE_LIST_ITEM:
       return omit(state, [action.id])
-    case RECEIVE_CACHED_LIST_ITEMS:
+    case RECEIVE_PERSISTED_LIST_ITEMS:
       return action.listItems || initialState.listItems
     default:
       return state

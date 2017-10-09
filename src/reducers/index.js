@@ -3,6 +3,8 @@ import uuidv4 from 'uuid/v4';
 import moment from 'moment';
 import { orange, blueGrey } from 'material-ui/colors';
 
+import { getTheme } from '../util/storageUtil';
+
 import lists from './list';
 import listItems from './listItem';
 import theme from './theme'
@@ -32,7 +34,8 @@ export const initialState = {
     palette: {
       primary: orange,
       secondary: blueGrey,
-    }
+    },
+    ...getTheme()
   }
 };
 
