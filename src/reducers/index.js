@@ -8,10 +8,13 @@ import { getTheme } from '../util/storageUtil';
 import lists from './list';
 import listItems from './listItem';
 import theme from './theme'
+import user from './user'
+import userAuth from './userAuth'
 
 export const makeList = (item = null) => ({
   [uuidv4()]: {
     title: 'Title Goes here',
+    private: false,
     listItems: item ? [Object.keys(item)[0]] : []
   }
 });
@@ -36,13 +39,16 @@ export const initialState = {
       secondary: blueGrey,
     },
     ...getTheme()
-  }
+  },
+  user: null,
+  userAuth: null
 };
 
 const rootReducer = combineReducers({
   listItems,
   lists,
-  theme
+  theme,
+  userAuth
 })
 
 export default rootReducer

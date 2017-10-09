@@ -17,6 +17,9 @@ export const UPDATE_PRIMARY_COLOR = 'UPDATE_PRIMARY_COLOR';
 export const UPDATE_SECONDARY_COLOR = 'UPDATE_SECONDARY_COLOR';
 export const RECEIVE_PERSISTED_THEME = 'RECEIVE_PERSISTED_THEME';
 
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+
 /*
  * action creators
  */
@@ -26,6 +29,8 @@ export const receivePersistedListItems = listItems => ({ type: RECEIVE_PERSISTED
 
 export const receivePersistedTheme = theme => ({ type: RECEIVE_PERSISTED_THEME, theme })
 
+export const userLogin = user => ({ type: LOGIN_USER, user })
+export const userLogout = () => ({ type: LOGOUT_USER })
 
 export function addListItem() {
   return { type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format() }
@@ -39,8 +44,8 @@ export function addList() {
   return { type: ADD_LIST }
 }
 
-export function deleteList(id) {
-  return { type: DELETE_LIST, id }
+export function deleteList(id, listItems) {
+  return { type: DELETE_LIST, id, listItems }
 }
 
 export function clearList() {

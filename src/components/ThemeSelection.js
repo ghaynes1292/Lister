@@ -27,11 +27,11 @@ class ColorPicker extends React.Component {
   }
 
   render() {
-    console.log('theme in component', this.props.theme)
+    console.log('render theme here', this.state)
     return (
       <div>
         <Button
-          aria-owns={this.state.open ? 'primary-color-picker' : null}
+          aria-owns={this.state.open ? 'color-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
@@ -47,14 +47,14 @@ class ColorPicker extends React.Component {
           </Grid>
         </Button>
         <Menu
-          id="primary-color-picker"
+          id="color-menu"
           anchorEl={this.state.anchorEl}
           open={this.state.open}
           onRequestClose={this.handleRequestClose}
           PaperProps={{
             style: {
-              maxHeight: ITEM_HEIGHT * 8.5,
-              width: ITEM_HEIGHT,
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: ITEM_HEIGHT * 2,
             },
           }}
         >
@@ -70,5 +70,8 @@ class ColorPicker extends React.Component {
     );
   }
 }
+
+
+
 
 export default ColorPicker;

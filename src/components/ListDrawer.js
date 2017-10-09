@@ -9,11 +9,12 @@ import Hidden from 'material-ui/Hidden';
 import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import Avatar from 'material-ui/Avatar';
 
 import ListListContainer from '../containers/ListListContainer';
 import ThemeSelectionContainer from '../containers/ThemeSelectionContainer';
 
-import { userSignIn } from '../util/firebase';
+import { userSignIn, userSignOut } from '../util/firebase';
 
 const drawerWidth = 240;
 
@@ -82,8 +83,16 @@ class ListDrawer extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
+  handleLoginClick = () => {
+    this.props.userLogin()
+  }
+
+  handleLogoutClick = () => {
+    this.props.userLogout()
+  }
+
   render() {
-    const { classes, children } = this.props;
+    const { classes, children, user, userAuth } = this.props;
 
     const drawer = (
       <div className={classes.drawerContainer}>
@@ -105,10 +114,16 @@ class ListDrawer extends React.Component {
               >
                 <Icon color="contrast">menu</Icon>
               </IconButton>
-              <Typography type="title" color="inherit" className={classes.appBarFlex}>
-                Title
-              </Typography>
-              <Button color="contrast" onClick={() => userSignIn()}>Login</Button>
+              {userAuth
+                ? <Typography type="title" color="inherit" className={classes.appBarFlex}>
+                  {userAuth.email}
+                </Typography>
+                : <Typography type="title" color="inherit" className={classes.appBarFlex}>
+                  Anonymous
+                </Typography>}
+              {userAuth
+                ? <Button color="contrast" onClick={() => userSignOut()}>Logout</Button>
+                : <Button color="contrast" onClick={() => userSignIn()}>Login</Button>}
             </Toolbar>
           </AppBar>
           <Hidden lgUp>

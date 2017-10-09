@@ -8,8 +8,7 @@ import Typography from 'material-ui/Typography';
 
 import SelectedListContainer from '../containers/SelectedListContainer';
 import AddListContainer from '../containers/AddListContainer';
-
-import ListDrawer from '../components/ListDrawer'
+import ListDrawerContainer from '../containers/ListDrawerContainer'
 
 const styles = {
   root: {
@@ -24,7 +23,7 @@ class Index extends Component {
 
     return (
       <div className={classes.root}>
-        <ListDrawer >
+        <ListDrawerContainer >
           <Grid container spacing={24}>
             <Grid item xs={3} />
             <Grid item xs={6}>
@@ -41,7 +40,7 @@ class Index extends Component {
               <SelectedListContainer />
             </Grid>
           </Grid>
-        </ListDrawer>
+        </ListDrawerContainer>
       </div>
     );
   }

@@ -65,7 +65,7 @@ function* persistTheme() {
 
 function* firebaseStorageSaga() {
   yield [
-    takeEvery([ADD_LIST_ITEM, UPDATE_LIST_ITEM, DELETE_LIST_ITEM], persistListItems),
+    takeEvery([ADD_LIST_ITEM, UPDATE_LIST_ITEM, DELETE_LIST, DELETE_LIST_ITEM], persistListItems),
     takeEvery([ADD_LIST, UPDATE_LIST_TITLE, DELETE_LIST, ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
     takeEvery([UPDATE_PRIMARY_COLOR], persistTheme),
   ]

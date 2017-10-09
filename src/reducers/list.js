@@ -1,5 +1,6 @@
 import update from 'immutability-helper';
 import indexOf from 'lodash/indexOf'
+import omit from 'lodash/omit'
 
 import { initialState, makeList } from '../reducers'
 
@@ -7,6 +8,7 @@ import {
   ADD_LIST,
   UPDATE_LIST_TITLE,
   CLEAR_LIST,
+  DELETE_LIST,
   SELECT_LIST,
   RECEIVE_PERSISTED_LISTS,
   ADD_LIST_ITEM,
@@ -33,6 +35,11 @@ function list(state = initialState.lists, action) {
       }
     case CLEAR_LIST:
       return state;
+    case DELETE_LIST:
+      return {
+        lists: omit(state.lists, [action.id]),
+        selectedList: Object.keys(omit(state.lists, [action.id]))[0]
+      }
     case SELECT_LIST:
       return {
         ...state,

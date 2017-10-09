@@ -10,7 +10,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
+export const firebaseAuth = firebase.auth;
 export const provider = new firebase.auth.GoogleAuthProvider();
 
 export const dbListItemRef = firebase.database().ref('listItems/');
@@ -29,32 +29,6 @@ export const fbPersistTheme = (theme) => {
   dbThemeRef.set(theme);
 }
 
-export const userSignIn = () => firebase.auth().signInWithRedirect(provider);
+export const userSignIn = () => firebaseAuth().signInWithRedirect(provider)
 
-firebase.auth().getRedirectResult().then(function(result) {
-  if (result.credential) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    console.log('signed in token', token)
-    // ...
-  }
-  // The signed-in user info.
-  console.log('result signed in', result.user)
-  var user = result.user;
-}).catch(function(error) {
-  // Handle Errors here.
-  console.log('error signing in', error)
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
-
-export const userSignOut = () => firebase.auth().signOut().then(function() {
-  console.log('signed out')
-}).catch(function(error) {
-  console.log('error occured while trying to sign out', error)
-});
+export const userSignOut = () => firebaseAuth().signOut()

@@ -29,12 +29,14 @@ class SelectedList extends Component {
     const { classes,
       list,
       listItems,
+      listId,
       updateListTitle,
       updateListItem,
       clearList,
+      deleteList
     } = this.props;
     const { title } = list;
-
+    console.log(list, 'list')
     return (
       <Grid container justify="center">
         <Grid item xs={11} lg={8}>
@@ -48,7 +50,10 @@ class SelectedList extends Component {
                   />
                 </Grid>
                 <Grid item xs={1} lg={2} >
-                  <Icon onClick={() => clearList()} color="contrast">delete_sweep</Icon>
+                  <Icon
+                    onClick={() => deleteList(listId, listItems.map((item) => item.id))}>
+                    delete_sweep
+                  </Icon>
                 </Grid>
               </Grid>
               {listItems.map((item, index) =>
