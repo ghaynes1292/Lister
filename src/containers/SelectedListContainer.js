@@ -3,26 +3,26 @@ import { connect } from 'react-redux'
 import SelectedList from '../components/SelectedList'
 
 import { updateListTitle, updateListItem, deleteListItem, deleteList, lockList, unlockList } from '../actions'
-import { getSelectedList, sortedListItems, getFirstList, getFirstListItems } from '../reducers/selectors';
+import { getSelectedList, sortedListItems, getCurrentUser } from '../reducers/selectors';
 
 const mapStateToProps = state => {
   return {
-    list: getSelectedList(state) || getFirstList(state),
-    listItems: sortedListItems(state) || getFirstListItems(state),
-    listId: state.lists.selectedList
+    list: getSelectedList(state),
+    listItems: sortedListItems(state),
+    user: getCurrentUser(state)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateListTitle: (title) => {
-      dispatch(updateListTitle(title))
+    updateListTitle: (title, id) => {
+      dispatch(updateListTitle(title, id))
     },
-    updateListItem: (id, text) => {
-      dispatch(updateListItem(id, text))
+    updateListItem: (id, text, listId) => {
+      dispatch(updateListItem(id, text, listId))
     },
-    deleteListItem: (id) => {
-      dispatch(deleteListItem(id))
+    deleteListItem: (id, listId) => {
+      dispatch(deleteListItem(id, listId))
     },
     deleteList: (id, listItems) => {
       dispatch(deleteList(id, listItems))

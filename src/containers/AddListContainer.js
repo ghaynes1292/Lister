@@ -1,19 +1,27 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import AddListButton from '../components/AddListButton'
+import AddListButton from '../components/AddListButton';
 
-import { addList } from '../actions'
+import { addList } from '../actions';
+import { getCurrentUser } from '../reducers/selectors';
+
+const mapStateToProps = state => {
+  console.log('current user', getCurrentUser(state))
+  return {
+    user: getCurrentUser(state)
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
-    addList: () => {
-      dispatch(addList())
+    addList: (userId) => {
+      dispatch(addList(userId))
     },
   }
 }
 
 const AddListContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AddListButton)
 

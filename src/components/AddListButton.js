@@ -9,9 +9,9 @@ const styles = theme => ({
 });
 
 function AddListButton(props) {
-  const classes = props.classes;
+  const { classes, addList, user } = props;
   return (
-    <Button fab color="primary" aria-label="add" onClick={props.addList}>
+    <Button fab color="primary" aria-label="add" onClick={() => addList(user.id)}>
       <Icon>add</Icon>
     </Button>
   );

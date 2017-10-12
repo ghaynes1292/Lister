@@ -25,12 +25,7 @@ class Index extends Component {
       <div className={classes.root}>
         <ListDrawerContainer >
           <Grid container spacing={24}>
-            <Grid item xs={3} />
-            <Grid item xs={6}>
-              <Typography type="display1" align='center' gutterBottom>
-                My List
-              </Typography>
-            </Grid>
+            <Grid item xs={9} />
             <Grid item xs={3}>
               <div align='center'>
                 <AddListContainer />

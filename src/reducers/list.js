@@ -9,7 +9,6 @@ import {
   UPDATE_LIST_TITLE,
   CLEAR_LIST,
   DELETE_LIST,
-  SELECT_LIST,
   RECEIVE_PERSISTED_LISTS,
   ADD_LIST_ITEM,
   DELETE_LIST_ITEM,
@@ -20,70 +19,43 @@ import {
 function list(state = initialState.lists, action) {
   switch (action.type) {
     case ADD_LIST:
-      const newList = makeList();
+      const newList = makeList(action.userId, null, action.id);
+      console.log('new list', newList, action)
       return {
-        selectedList: Object.keys(newList)[0],
-        lists: {
-          ...state.lists,
-          ...newList
-        }
+        ...state,
+        ...newList
       }
     case UPDATE_LIST_TITLE:
-      return {
-        ...state,
-        lists: update(state.lists, {
-          [state.selectedList]: { title: {$set: action.title} }
-        })
-      }
+      return update(state, {
+        [action.listId]: { title: {$set: action.title} }
+      })
     case UNLOCK_LIST:
-      return {
-        ...state,
-        lists: update(state.lists, {
-          [state.selectedList]: { public: {$set: true} }
-        })
-      }
+      return update(state, {
+        [action.listId]: { public: {$set: true} }
+      })
     case LOCK_LIST:
-      return {
-        ...state,
-        lists: update(state.lists, {
-          [state.selectedList]: { public: {$set: false} }
-        })
-      }
-    case CLEAR_LIST:
-      return state;
+      return update(state, {
+        [action.listId]: { public: {$set: false} }
+      })
     case DELETE_LIST:
-      return {
-        lists: omit(state.lists, [action.id]),
-        selectedList: Object.keys(omit(state.lists, [action.id]))[0]
-      }
-    case SELECT_LIST:
-      return {
-        ...state,
-        selectedList: action.id
-      }
+      return omit(state, [action.id])
     case RECEIVE_PERSISTED_LISTS:
       return {
         ...initialState.lists,
         ...action.lists
       }
     case ADD_LIST_ITEM:
-      return {
-        ...state,
-        lists: update(state.lists, {
-          [state.selectedList]: { listItems: {$set: [
-            ...state.lists[state.selectedList].listItems,
-            action.id
-          ]} }
-        })
-      }
+      return update(state, {
+        [action.listId]: { listItems: {$set: [
+          ...state[action.listId].listItems,
+          action.id
+        ]} }
+      })
     case DELETE_LIST_ITEM:
-      return {
-        ...state,
-        lists: update(state.lists, {
-          [state.selectedList]: { listItems:
-            {$splice: [[indexOf(state.lists[state.selectedList].listItems, action.id), 1]]} }
-        })
-      }
+      return update(state, {
+        [action.listId]: { listItems:
+          {$splice: [[indexOf(state[action.listId].listItems, action.id), 1]]} }
+      })
     default:
       return state
   }

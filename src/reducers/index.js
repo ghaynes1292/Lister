@@ -10,16 +10,16 @@ import listItems from './listItem';
 import users from './users'
 import userAuth from './userAuth'
 
-export const makeList = (item = null, id = uuidv4()) => ({
+export const makeList = (userId = null, item = null, id = uuidv4()) => ({
   [id]: {
     id: id,
     createdAt: moment().format(),
+    owner: userId,
     title: 'Title Goes here',
     public: true,
     listItems: item ? [Object.keys(item)[0]] : []
   }
 });
-
 export const newTheme = () => ({
   palette: {
     primary: orange,
@@ -36,22 +36,16 @@ export const newUser = (user, id = uuidv4()) => ({
   uid: user ? user.uid : null,
   name: user ? user.displayName : 'Anonymous',
   lists: [],
-  theme: newTheme()
+  theme: newTheme(),
+  selectedList: null
 });
 
-const initialListItem = makeListItem(uuidv4(), moment().format(), 'List item goes here');
-const initialList = makeList(initialListItem);
 const cachedUser = getUser();
 const currentUser = cachedUser ? cachedUser : newUser(null)
 
 export const initialState = {
-  lists: {
-    lists: { ...initialList },
-    selectedList: Object.keys(initialList)[0]
-  },
-  listItems: {
-    ...initialListItem
-  },
+  lists: {},
+  listItems: {},
   users: {
     [currentUser.id]: currentUser
   },

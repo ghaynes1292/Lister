@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
 const styles = theme => ({
@@ -10,13 +11,16 @@ const styles = theme => ({
     maxWidth: 360,
     background: theme.palette.background.paper,
   },
+  listTitle: {
+    padding: '10px 0px'
+  }
 });
 
 class ListList extends React.Component {
   handleSelect (id) {
-    const { toggleDrawer, selectList } = this.props;
-    selectList(id);
-    toggleDrawer()
+    const { toggleDrawer, selectList, user } = this.props;
+    selectList(user, id);
+    toggleDrawer();
   }
 
   render () {
@@ -24,6 +28,9 @@ class ListList extends React.Component {
 
     return (
       <div className={classes.root}>
+        <Typography type='title' align='center' className={classes.listTitle}>
+          Public Lists
+        </Typography>
         <List>
           {publicLists.map((list) =>
             <ListItem
@@ -36,6 +43,9 @@ class ListList extends React.Component {
           )}
         </List>
         <Divider />
+        <Typography type='title' align='center' className={classes.listTitle}>
+          Your Lists
+        </Typography>
         <List>
           {privateLists.map((list) =>
             <ListItem

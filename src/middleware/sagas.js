@@ -18,9 +18,11 @@ import {
   UPDATE_USER,
   ADD_LIST_USER,
   addListUser,
+  updateUser,
   addListItem,
   deleteListItem,
   createUser,
+  selectListUser
 } from '../actions'
 
 import {  getSelectedListItems, getCurrentUser, getLastList } from '../reducers/selectors';
@@ -46,10 +48,10 @@ function* maintainList(action) {
   try {
     const listItems = yield select(state => getSelectedListItems(state))
     if (!listItems.some((item) => item.text === '')) {
-      yield put(addListItem())
+      yield put(addListItem(action.listId))
     }
     if (action.text === '') {
-      yield put(deleteListItem(action.id))
+      yield put(deleteListItem(action.id, action.listId))
     }
   } catch(e) {
     yield e
@@ -58,14 +60,20 @@ function* maintainList(action) {
 
 function* listElementSaga() {
   yield [
-    takeEvery([UPDATE_LIST_ITEM, ADD_LIST], maintainList)
+    takeEvery([UPDATE_LIST_ITEM], maintainList)
   ]
 }
 
 function* maintainUserList(action) {
   try {
     const { user, list } = yield select(state => ({ user: getCurrentUser(state), list: getLastList(state) }))
-    yield put(addListUser(user, list.id))
+    const updatedUser = {
+      ...user,
+      selectedList: list.id,
+      lists: [...user.lists, list.id]
+    }
+    yield put(updateUser(updatedUser))
+    yield put(addListItem(action.id))
   } catch(e) {
     yield e
   }

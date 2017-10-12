@@ -1,12 +1,14 @@
 import update from 'immutability-helper';
-import indexOf from 'lodash/indexOf'
+import forEach from 'lodash/forEach'
+import reject from 'lodash/reject'
 
 import { initialState, newUser } from '../reducers'
 
 import {
   CREATE_USER,
   UPDATE_USER,
-  ADD_LIST_USER
+  ADD_LIST_USER,
+  DELETE_LIST
 } from '../actions';
 
 function users(state = initialState.users, action) {
@@ -21,6 +23,12 @@ function users(state = initialState.users, action) {
           ...state,
           [action.user.id]: update(state[action.user.id], {$merge: action.user})
         }
+      case DELETE_LIST:
+        const newUsers = {}
+        forEach(state, (value, key) => {
+          newUsers[key] = { ...value, lists: reject(value.lists, (o) => o === action.id) }
+        })
+        return newUsers
       case ADD_LIST_USER:
         return {
           ...state,

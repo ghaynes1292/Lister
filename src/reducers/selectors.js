@@ -5,11 +5,11 @@ import last from 'lodash/last'
 
 import { newTheme } from '../reducers'
 
-export const getSelectedList = (state) => state.lists.lists[state.lists.selectedList]
-export const getFirstList = (state) => Object.values(state.lists.lists)[0]
-export const getSelectedListItems = (state) => {
-  return filter(state.listItems, (o) => getSelectedList(state).listItems.includes(o.id))
-}
+export const getSelectedList = (state) => getCurrentUser(state) ? state.lists[getCurrentUser(state).selectedList] : null
+export const getFirstList = (state) => Object.values(state.lists)[0]
+export const getSelectedListItems = (state) => getSelectedList(state)
+  ? filter(state.listItems, (o) => getSelectedList(state).listItems.includes(o.id))
+  : []
 
 
 export const getFirstListItems = (state) =>
@@ -23,10 +23,10 @@ export const getCurrentUser = (state) => {
 
 export const getCurrentUserTheme = (state) => getCurrentUser(state) && getCurrentUser(state).theme ? getCurrentUser(state).theme : newTheme()
 
-export const getPublicLists = (state) => filter(state.lists.lists, 'public')
+export const getPublicLists = (state) => filter(state.lists, 'public')
 export const getUserLists = (state) => {
   const currentUser = getCurrentUser(state)
-  return currentUser && currentUser.lists ? filter(state.lists.lists, (o) => currentUser.lists.includes(o.id)) : []
+  return currentUser && currentUser.lists ? filter(state.lists, (o) => currentUser.lists.includes(o.id)) : []
 }
 
-export const getLastList = (state) => last(sortBy(state.lists.lists, (o) => o.createdAt))
+export const getLastList = (state) => last(sortBy(state.lists, (o) => o.createdAt))
