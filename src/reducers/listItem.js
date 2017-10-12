@@ -25,7 +25,6 @@ function listItem(state = initialState.listItems, action) {
     case DELETE_LIST_ITEM:
       return omit(state, [action.id])
     case DELETE_LIST:
-      console.log('deleting list', state, action, action.listItems)
       return omit(state, action.listItems)
     case RECEIVE_PERSISTED_LIST_ITEMS:
       return action.listItems || initialState.listItems

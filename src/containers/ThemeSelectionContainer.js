@@ -2,22 +2,21 @@ import { connect } from 'react-redux'
 
 import ThemeSelection from '../components/ThemeSelection';
 
-import { updatePrimaryColor, updateSecondaryColor } from '../actions'
+import { updateUser } from '../actions'
+import { getCurrentUser, getCurrentUserTheme } from '../reducers/selectors';
 
 const mapStateToProps = state => {
   return {
-    theme: state.theme
+    theme: getCurrentUserTheme(state),
+    user: getCurrentUser(state)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    updatePrimaryColor: (color) => {
-      dispatch(updatePrimaryColor(color))
-    },
-    updateSecondaryColor: (color) => {
-      dispatch(updateSecondaryColor(color))
-    },
+    updatePrimaryColor: (user) => {
+      dispatch(updateUser(user))
+    }
   }
 }
 

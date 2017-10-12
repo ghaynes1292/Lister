@@ -7,6 +7,8 @@ import { withStyles, MuiThemeProvider } from 'material-ui/styles';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import createContext from '../styles/createContext';
 
+import { getCurrentUserTheme } from '../reducers/selectors';
+
 // Apply some reset
 const styles = theme => ({
   '@global': {
@@ -23,7 +25,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   return {
-    theme: state.theme,
+    theme: getCurrentUserTheme(state),
   }
 }
 
@@ -43,6 +45,7 @@ function withRoot(BaseComponent) {
 
     render() {
       const context = createContext(this.props.theme);
+      console.log('updating theme', this.props.theme)
       return (
         <JssProvider registry={context.sheetsRegistry} Jss={context.jss}>
           <MuiThemeProvider theme={context.theme} sheetsManager={context.sheetsManager}>

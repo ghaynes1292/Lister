@@ -1,6 +1,9 @@
-const THEME = 'THEME';
+const USER = 'USER';
 
-const getTheme = () => JSON.parse(localStorage.getItem(THEME));
-const saveTheme = theme => localStorage.setItem(THEME, JSON.stringify(theme));
+const getUser = () => {
+  const user = localStorage.getItem(USER)
+  return user ? JSON.parse(user) :  {};
+}
+const saveUser = user => localStorage.setItem(USER, JSON.stringify(user));
 
-export { getTheme, saveTheme }
+export { getUser, saveUser }

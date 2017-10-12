@@ -22,10 +22,8 @@ sagaMiddleware.run(listStorageSaga);
 
 firebaseAuth().onAuthStateChanged(user => {
   if (user) {
-    console.log("User signed in: ", user);
     store.dispatch(userLogin(user));
   } else {
-    console.log('user signed out')
     store.dispatch(userLogout());
   }
 });

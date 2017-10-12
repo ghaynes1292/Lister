@@ -22,12 +22,24 @@ class ColorPicker extends React.Component {
   };
 
   handleSelect (color) {
-    this.props.updatePrimaryColor(color)
+    const { user, updatePrimaryColor } = this.props;
+
+    const newUser = {
+      ...user,
+      theme: {
+        ...user.theme,
+        palette: {
+          ...user.theme.palette,
+          primary: convertColorToPalette(color).palette
+        }
+      }
+    }
+    updatePrimaryColor(newUser)
     this.handleRequestClose()
   }
 
   render() {
-    console.log('render theme here', this.state)
+    const { user, theme } = this.props;
     return (
       <div>
         <Button
@@ -42,7 +54,7 @@ class ColorPicker extends React.Component {
             <Grid
               item
               xs={1}
-              style={{ background: this.props.theme.palette ? this.props.theme.palette.primary[500] : '' }}
+              style={{ background: theme.palette ? theme.palette.primary[500] : '' }}
             />
           </Grid>
         </Button>

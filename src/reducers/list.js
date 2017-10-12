@@ -13,6 +13,8 @@ import {
   RECEIVE_PERSISTED_LISTS,
   ADD_LIST_ITEM,
   DELETE_LIST_ITEM,
+  UNLOCK_LIST,
+  LOCK_LIST
 } from '../actions';
 
 function list(state = initialState.lists, action) {
@@ -31,6 +33,20 @@ function list(state = initialState.lists, action) {
         ...state,
         lists: update(state.lists, {
           [state.selectedList]: { title: {$set: action.title} }
+        })
+      }
+    case UNLOCK_LIST:
+      return {
+        ...state,
+        lists: update(state.lists, {
+          [state.selectedList]: { public: {$set: true} }
+        })
+      }
+    case LOCK_LIST:
+      return {
+        ...state,
+        lists: update(state.lists, {
+          [state.selectedList]: { public: {$set: false} }
         })
       }
     case CLEAR_LIST:

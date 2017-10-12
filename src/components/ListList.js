@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 
 const styles = theme => ({
   root: {
@@ -19,17 +20,30 @@ class ListList extends React.Component {
   }
 
   render () {
-    const { classes, lists } = this.props;
+    const { classes, publicLists, privateLists } = this.props;
+    console.log('public/private', publicLists, privateLists)
     return (
       <div className={classes.root}>
         <List>
-          {Object.keys(lists).map((list) =>
+          {Object.keys(publicLists).map((list) =>
             <ListItem
               button
               key={list}
               onClick={() => this.handleSelect(list)}
             >
-              <ListItemText primary={lists[list].title} />
+              <ListItemText primary={publicLists[list].title} />
+            </ListItem>
+          )}
+        </List>
+        <Divider />
+        <List>
+          {Object.keys(privateLists).map((list) =>
+            <ListItem
+              button
+              key={list}
+              onClick={() => this.handleSelect(list)}
+            >
+              <ListItemText primary={privateLists[list].title} />
             </ListItem>
           )}
         </List>

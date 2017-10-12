@@ -11,6 +11,8 @@ export const UPDATE_LIST_TITLE = 'UPDATE_LIST_TITLE';
 export const DELETE_LIST = 'DELETE_LIST';
 export const CLEAR_LIST = 'CLEAR_LIST';
 export const SELECT_LIST = 'SELECT_LIST';
+export const LOCK_LIST = 'LOCK_LIST';
+export const UNLOCK_LIST = 'UNLOCK_LIST';
 export const RECEIVE_PERSISTED_LISTS = 'RECEIVE_PERSISTED_LISTS';
 
 export const UPDATE_PRIMARY_COLOR = 'UPDATE_PRIMARY_COLOR';
@@ -20,54 +22,32 @@ export const RECEIVE_PERSISTED_THEME = 'RECEIVE_PERSISTED_THEME';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
+export const CREATE_USER = 'CREATE_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+
 /*
  * action creators
  */
 export const receivePersistedLists = lists => ({ type: RECEIVE_PERSISTED_LISTS, lists })
-
 export const receivePersistedListItems = listItems => ({ type: RECEIVE_PERSISTED_LIST_ITEMS, listItems })
-
 export const receivePersistedTheme = theme => ({ type: RECEIVE_PERSISTED_THEME, theme })
 
 export const userLogin = user => ({ type: LOGIN_USER, user })
 export const userLogout = () => ({ type: LOGOUT_USER })
 
-export function addListItem() {
-  return { type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format() }
-}
+export const createUser = (user) => ({ type: CREATE_USER, user })
+export const updateUser = (user) => ({ type: UPDATE_USER, user })
 
-export function deleteListItem(id) {
-  return { type: DELETE_LIST_ITEM, id }
-}
+export const addList = () => ({ type: ADD_LIST })
+export const deleteList = (id, listItems) => ({ type: DELETE_LIST, id, listItems })
+export const clearList = () => ({ type: CLEAR_LIST })
+export const selectList = (id) => ({ type: SELECT_LIST, id })
+export const lockList = (id) => ({ type: LOCK_LIST, id })
+export const unlockList = (id) => ({ type: UNLOCK_LIST, id })
+export const updateListTitle = (title) => ({ type: UPDATE_LIST_TITLE, title })
 
-export function addList() {
-  return { type: ADD_LIST }
-}
+export const addListItem = () => ({ type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format() })
+export const deleteListItem = (id) => ({ type: DELETE_LIST_ITEM, id })
+export const updateListItem = (id, text) => ({ type: UPDATE_LIST_ITEM, id, text })
 
-export function deleteList(id, listItems) {
-  return { type: DELETE_LIST, id, listItems }
-}
-
-export function clearList() {
-  return { type: CLEAR_LIST }
-}
-
-export function selectList(id) {
-  return { type: SELECT_LIST, id }
-}
-
-export function updateListTitle(title) {
-  return { type: UPDATE_LIST_TITLE, title }
-}
-
-export function updateListItem(id, text) {
-  return { type: UPDATE_LIST_ITEM, id, text }
-}
-
-export function updatePrimaryColor(color) {
-  return { type: UPDATE_PRIMARY_COLOR, color }
-}
-
-export function updateSecondaryColor(color) {
-  return { type: UPDATE_SECONDARY_COLOR, color }
-}
+export const updatePrimaryColor = (color) => ({ type: UPDATE_PRIMARY_COLOR, color })

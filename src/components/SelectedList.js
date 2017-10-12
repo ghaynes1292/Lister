@@ -33,7 +33,9 @@ class SelectedList extends Component {
       updateListTitle,
       updateListItem,
       clearList,
-      deleteList
+      deleteList,
+      lockList,
+      unlockList
     } = this.props;
     const { title } = list;
     console.log(list, 'list')
@@ -43,7 +45,7 @@ class SelectedList extends Component {
           <Card elevation={4}>
             <CardContent>
               <Grid container>
-                <Grid item xs={11} lg={6} >
+                <Grid item xs={10} lg={6} >
                   <TitleInput
                     title={title}
                     updateTitle={(event) => updateListTitle(event.target.value)}
@@ -53,6 +55,12 @@ class SelectedList extends Component {
                   <Icon
                     onClick={() => deleteList(listId, listItems.map((item) => item.id))}>
                     delete_sweep
+                  </Icon>
+                </Grid>
+                <Grid item xs={1} lg={2} >
+                  <Icon
+                    onClick={() => list.public ? lockList(listId) : unlockList(listId)}>
+                    { list.public ? 'lock_open' : 'lock_outline' }
                   </Icon>
                 </Grid>
               </Grid>

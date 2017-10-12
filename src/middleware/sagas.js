@@ -1,5 +1,5 @@
 import { takeEvery, select, put, fork, all } from 'redux-saga/effects';
-import { saveTheme } from '../util/storageUtil';
+import { saveUser } from '../util/storageUtil';
 import { fbPersistLists, fbPersistListItems, fbPersistTheme } from '../util/firebase';
 import {
   ADD_LIST,
@@ -10,11 +10,32 @@ import {
   DELETE_LIST_ITEM,
   UPDATE_PRIMARY_COLOR,
   RECEIVE_PERSISTED_THEME,
+  LOGIN_USER,
+  UPDATE_USER,
   addListItem,
   deleteListItem,
+  createUser,
 } from '../actions'
 
-import {  getSelectedListItems } from '../reducers/selectors';
+import {  getSelectedListItems, getCurrentUser } from '../reducers/selectors';
+
+function* maintainUser(action) {
+  try {
+    const users = yield select(state => state.users)
+    console.log('in maintain user', action.user.uid)
+    if (!users[action.user.uid]) {
+      yield put(createUser(action.user))
+    }
+  } catch(e) {
+    yield e
+  }
+}
+
+function* userSaga() {
+  yield [
+    takeEvery([LOGIN_USER], maintainUser)
+  ]
+}
 
 function* maintainList(action) {
   try {
@@ -71,10 +92,10 @@ function* firebaseStorageSaga() {
   ]
 }
 
-function* localSaveTheme() {
+function* localSaveUser() {
   try {
-    const theme = yield select(state => state.theme)
-    saveTheme(theme)
+    const user = yield select(state => getCurrentUser(state))
+    saveUser(user)
   } catch(e) {
     yield e
   }
@@ -82,7 +103,7 @@ function* localSaveTheme() {
 
 function* localStorageSaga() {
   yield [
-    takeEvery([UPDATE_PRIMARY_COLOR, RECEIVE_PERSISTED_THEME], localSaveTheme),
+    takeEvery([UPDATE_PRIMARY_COLOR, RECEIVE_PERSISTED_THEME, LOGIN_USER, UPDATE_USER], localSaveUser),
   ]
 }
 
@@ -91,5 +112,6 @@ export default function* rootSaga() {
     fork(localStorageSaga),
     fork(listElementSaga),
     fork(firebaseStorageSaga),
+    fork(userSaga),
   ])
 }

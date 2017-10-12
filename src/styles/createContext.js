@@ -6,9 +6,9 @@ import { SheetsRegistry } from 'react-jss/lib/jss';
 import { createMuiTheme } from 'material-ui/styles';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 
-import { getTheme } from '../util/storageUtil';
+import { getUser } from '../util/storageUtil';
 
-const createTheme = (themeOptions = getTheme()) => createMuiTheme({
+const createTheme = (themeOptions = getUser().theme) => createMuiTheme({
   ...themeOptions
 });
 
@@ -20,6 +20,7 @@ export const sheetsManager = new Map();
 
 export default function createContext(themeOptions) {
   const theme = createTheme(themeOptions)
+
   return {
     jss,
     theme,
