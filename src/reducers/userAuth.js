@@ -11,7 +11,10 @@ import {
 function userAuth(state = initialState.userAuth, action) {
   switch (action.type) {
     case LOGIN_USER:
-      return action.user
+      return {
+        ...action.user,
+        id: state.id
+      }
     case LOGOUT_USER:
       return initialState.userAuth
     default:

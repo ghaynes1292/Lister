@@ -38,7 +38,7 @@ class SelectedList extends Component {
       unlockList
     } = this.props;
     const { title } = list;
-    console.log(list, 'list')
+
     return (
       <Grid container justify="center">
         <Grid item xs={11} lg={8}>

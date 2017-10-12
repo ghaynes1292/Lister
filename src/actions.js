@@ -24,6 +24,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const CREATE_USER = 'CREATE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const ADD_LIST_USER = 'ADD_LIST_USER';
 
 /*
  * action creators
@@ -37,6 +38,7 @@ export const userLogout = () => ({ type: LOGOUT_USER })
 
 export const createUser = (user) => ({ type: CREATE_USER, user })
 export const updateUser = (user) => ({ type: UPDATE_USER, user })
+export const addListUser = (user, listId) => ({ type: ADD_LIST_USER, user, listId })
 
 export const addList = () => ({ type: ADD_LIST })
 export const deleteList = (id, listItems) => ({ type: DELETE_LIST, id, listItems })

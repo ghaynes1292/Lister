@@ -21,29 +21,29 @@ class ListList extends React.Component {
 
   render () {
     const { classes, publicLists, privateLists } = this.props;
-    console.log('public/private', publicLists, privateLists)
+
     return (
       <div className={classes.root}>
         <List>
-          {Object.keys(publicLists).map((list) =>
+          {publicLists.map((list) =>
             <ListItem
               button
-              key={list}
-              onClick={() => this.handleSelect(list)}
+              key={list.id}
+              onClick={() => this.handleSelect(list.id)}
             >
-              <ListItemText primary={publicLists[list].title} />
+              <ListItemText primary={list.title} />
             </ListItem>
           )}
         </List>
         <Divider />
         <List>
-          {Object.keys(privateLists).map((list) =>
+          {privateLists.map((list) =>
             <ListItem
               button
-              key={list}
-              onClick={() => this.handleSelect(list)}
+              key={list.id}
+              onClick={() => this.handleSelect(list.id)}
             >
-              <ListItemText primary={privateLists[list].title} />
+              <ListItemText primary={list.title} />
             </ListItem>
           )}
         </List>

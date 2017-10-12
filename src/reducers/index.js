@@ -13,8 +13,9 @@ import userAuth from './userAuth'
 export const makeList = (item = null, id = uuidv4()) => ({
   [id]: {
     id: id,
+    createdAt: moment().format(),
     title: 'Title Goes here',
-    public: false,
+    public: true,
     listItems: item ? [Object.keys(item)[0]] : []
   }
 });
@@ -26,20 +27,23 @@ export const newTheme = () => ({
   }
 });
 
-export const makeListItem = (id, createdAt) => {
+export const makeListItem = (id, createdAt, text = '') => {
   return { [id]: { id, text: '', createdAt } };
 }
 
-export const newUser = (user) => ({
-  id: user.uid,
-  name: user.displayName,
+export const newUser = (user, id = uuidv4()) => ({
+  id: id,
+  uid: user ? user.uid : null,
+  name: user ? user.displayName : 'Anonymous',
   lists: [],
   theme: newTheme()
 });
 
-const initialListItem = makeListItem(uuidv4(), moment().format());
+const initialListItem = makeListItem(uuidv4(), moment().format(), 'List item goes here');
 const initialList = makeList(initialListItem);
 const cachedUser = getUser();
+const currentUser = cachedUser ? cachedUser : newUser(null)
+
 export const initialState = {
   lists: {
     lists: { ...initialList },
@@ -49,9 +53,9 @@ export const initialState = {
     ...initialListItem
   },
   users: {
-    [cachedUser.id]: cachedUser
+    [currentUser.id]: currentUser
   },
-  userAuth: null
+  userAuth: currentUser
 };
 
 const rootReducer = combineReducers({

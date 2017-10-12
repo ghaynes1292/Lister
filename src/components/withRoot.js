@@ -45,7 +45,7 @@ function withRoot(BaseComponent) {
 
     render() {
       const context = createContext(this.props.theme);
-      console.log('updating theme', this.props.theme)
+
       return (
         <JssProvider registry={context.sheetsRegistry} Jss={context.jss}>
           <MuiThemeProvider theme={context.theme} sheetsManager={context.sheetsManager}>

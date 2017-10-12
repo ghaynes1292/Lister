@@ -114,16 +114,12 @@ class ListDrawer extends React.Component {
               >
                 <Icon color="contrast">menu</Icon>
               </IconButton>
-              {userAuth
-                ? <Typography type="title" color="inherit" className={classes.appBarFlex}>
-                  {userAuth.email}
-                </Typography>
-                : <Typography type="title" color="inherit" className={classes.appBarFlex}>
-                  Anonymous
-                </Typography>}
-              {userAuth
-                ? <Button color="contrast" onClick={() => userSignOut()}>Logout</Button>
-                : <Button color="contrast" onClick={() => userSignIn()}>Login</Button>}
+              <Typography type="title" className={classes.appBarFlex}>
+                {userAuth.name}
+              </Typography>
+              {userAuth.uid
+                ? <Button onClick={() => userSignOut()}>Logout</Button>
+                : <Button onClick={() => userSignIn()}>Login</Button>}
             </Toolbar>
           </AppBar>
           <Hidden lgUp>

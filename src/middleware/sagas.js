@@ -1,4 +1,5 @@
 import { takeEvery, select, put, fork, all } from 'redux-saga/effects';
+import find from 'lodash/find';
 import { saveUser } from '../util/storageUtil';
 import { fbPersistLists, fbPersistListItems, fbPersistTheme } from '../util/firebase';
 import {
@@ -11,19 +12,23 @@ import {
   UPDATE_PRIMARY_COLOR,
   RECEIVE_PERSISTED_THEME,
   LOGIN_USER,
+  UNLOCK_LIST,
+  LOCK_LIST,
+  CREATE_USER,
   UPDATE_USER,
+  ADD_LIST_USER,
+  addListUser,
   addListItem,
   deleteListItem,
   createUser,
 } from '../actions'
 
-import {  getSelectedListItems, getCurrentUser } from '../reducers/selectors';
+import {  getSelectedListItems, getCurrentUser, getLastList } from '../reducers/selectors';
 
 function* maintainUser(action) {
   try {
     const users = yield select(state => state.users)
-    console.log('in maintain user', action.user.uid)
-    if (!users[action.user.uid]) {
+    if (!find(users, ['uid', action.user.uid])) {
       yield put(createUser(action.user))
     }
   } catch(e) {
@@ -57,6 +62,21 @@ function* listElementSaga() {
   ]
 }
 
+function* maintainUserList(action) {
+  try {
+    const { user, list } = yield select(state => ({ user: getCurrentUser(state), list: getLastList(state) }))
+    yield put(addListUser(user, list.id))
+  } catch(e) {
+    yield e
+  }
+}
+
+function* listUserSaga() {
+  yield [
+    takeEvery([ADD_LIST], maintainUserList)
+  ]
+}
+
 function* persistLists() {
   try {
     const lists = yield select(state => state.lists)
@@ -87,7 +107,8 @@ function* persistTheme() {
 function* firebaseStorageSaga() {
   yield [
     takeEvery([ADD_LIST_ITEM, UPDATE_LIST_ITEM, DELETE_LIST, DELETE_LIST_ITEM], persistListItems),
-    takeEvery([ADD_LIST, UPDATE_LIST_TITLE, DELETE_LIST, ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
+    takeEvery([ADD_LIST, UPDATE_LIST_TITLE, UNLOCK_LIST, LOCK_LIST, DELETE_LIST,
+      ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
     takeEvery([UPDATE_PRIMARY_COLOR], persistTheme),
   ]
 }
@@ -103,7 +124,7 @@ function* localSaveUser() {
 
 function* localStorageSaga() {
   yield [
-    takeEvery([UPDATE_PRIMARY_COLOR, RECEIVE_PERSISTED_THEME, LOGIN_USER, UPDATE_USER], localSaveUser),
+    takeEvery([CREATE_USER, UPDATE_USER, ADD_LIST_USER], localSaveUser),
   ]
 }
 
@@ -111,6 +132,7 @@ export default function* rootSaga() {
   yield all([
     fork(localStorageSaga),
     fork(listElementSaga),
+    fork(listUserSaga),
     fork(firebaseStorageSaga),
     fork(userSaga),
   ])
