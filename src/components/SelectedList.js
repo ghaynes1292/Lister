@@ -22,10 +22,10 @@ const styles = theme => ({
 
 class SelectedList extends Component {
   handleDelete(id) {
-    const { listItems, deleteListItem, listId } = this.props;
+    const { listItems, deleteListItem, list } = this.props;
 
     if (listItems.length > 1) {
-      deleteListItem(id, listId);
+      deleteListItem(id, list.id);
     }
   }
 
