@@ -20,7 +20,7 @@ const styles = {
 class Index extends Component {
   render() {
     const { classes } = this.props;
-
+    console.log('version', process.env.REACT_APP_VERSION)
     return (
       <div className={classes.root}>
         <ListDrawerContainer >

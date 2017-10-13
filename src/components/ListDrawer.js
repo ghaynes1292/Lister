@@ -117,6 +117,9 @@ class ListDrawer extends React.Component {
               <Typography type="title" className={classes.appBarFlex}>
                 {userAuth.name}
               </Typography>
+              <Typography>
+                Version: {process.env.REACT_APP_VERSION}
+              </Typography>
               {userAuth.uid
                 ? <Button onClick={() => userSignOut()}>Logout</Button>
                 : <Button onClick={() => userSignIn()}>Login</Button>}
