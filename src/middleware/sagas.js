@@ -44,26 +44,6 @@ function* userSaga() {
   ]
 }
 
-function* maintainList(action) {
-  try {
-    const listItems = yield select(state => getSelectedListItems(state))
-    if (!listItems.some((item) => item.text === '')) {
-      yield put(addListItem(action.listId))
-    }
-    if (action.text === '') {
-      yield put(deleteListItem(action.id, action.listId))
-    }
-  } catch(e) {
-    yield e
-  }
-}
-
-function* listElementSaga() {
-  yield [
-    takeEvery([UPDATE_LIST_ITEM], maintainList)
-  ]
-}
-
 function* maintainUserList(action) {
   try {
     const { user, list } = yield select(state => ({ user: getCurrentUser(state), list: getLastList(state) }))
@@ -73,7 +53,6 @@ function* maintainUserList(action) {
       lists: [...user.lists, list.id]
     }
     yield put(updateUser(updatedUser))
-    yield put(addListItem(action.id))
   } catch(e) {
     yield e
   }
@@ -139,7 +118,6 @@ function* localStorageSaga() {
 export default function* rootSaga() {
   yield all([
     fork(localStorageSaga),
-    fork(listElementSaga),
     fork(listUserSaga),
     fork(firebaseStorageSaga),
     fork(userSaga),

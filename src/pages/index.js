@@ -13,7 +13,7 @@ import ListDrawerContainer from '../containers/ListDrawerContainer'
 const styles = {
   root: {
     flexGrow: 1,
-    height: '100%',
+    height: `${window.innerHeight}px`
   },
 };
 
@@ -24,7 +24,7 @@ class Index extends Component {
     return (
       <div className={classes.root}>
         <ListDrawerContainer >
-          <Grid container spacing={24}>
+          <Grid container spacing={0}>
             <Grid item xs={9} />
             <Grid item xs={3}>
               <div align='center'>

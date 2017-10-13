@@ -47,8 +47,8 @@ export const lockList = (listId) => ({ type: LOCK_LIST, listId })
 export const unlockList = (listId) => ({ type: UNLOCK_LIST, listId })
 export const updateListTitle = (title, listId) => ({ type: UPDATE_LIST_TITLE, title, listId })
 
-export const addListItem = (listId) => ({ type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format(), listId })
+export const addListItem = (listId, attributes) => ({ type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format(), listId, attributes })
 export const deleteListItem = (id, listId) => ({ type: DELETE_LIST_ITEM, id, listId })
-export const updateListItem = (id, text, listId) => ({ type: UPDATE_LIST_ITEM, id, text, listId })
+export const updateListItem = (id, item, listId) => ({ type: UPDATE_LIST_ITEM, id, item, listId })
 
 export const updatePrimaryColor = (color) => ({ type: UPDATE_PRIMARY_COLOR, color })

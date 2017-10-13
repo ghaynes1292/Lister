@@ -17,9 +17,10 @@ import {
 } from '../actions';
 
 function list(state = initialState.lists, action) {
+  console.log('list state', state)
   switch (action.type) {
     case ADD_LIST:
-      const newList = makeList(action.userId, null, action.id);
+      const newList = makeList(action.userId, action.id);
       console.log('new list', newList, action)
       return {
         ...state,
@@ -45,12 +46,7 @@ function list(state = initialState.lists, action) {
         ...action.lists
       }
     case ADD_LIST_ITEM:
-      return update(state, {
-        [action.listId]: { listItems: {$set: [
-          ...state[action.listId].listItems,
-          action.id
-        ]} }
-      })
+      return update(state[action.listId].listItems, {$push: [action.id]})
     case DELETE_LIST_ITEM:
       return update(state, {
         [action.listId]: { listItems:

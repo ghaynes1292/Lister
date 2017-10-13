@@ -11,6 +11,8 @@ import Typography from 'material-ui/Typography';
 
 import TitleInput from './TitleInput';
 import ListItem from './ListItem';
+import ListItemCard from './ListItemCard'
+import AutoSuggestInput from './AutoSuggestInput';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -55,7 +57,7 @@ class SelectedList extends Component {
       listItems,
       user,
       updateListTitle,
-      updateListItem,
+      addListItem,
       clearList,
       deleteList,
       lockList,
@@ -63,39 +65,43 @@ class SelectedList extends Component {
     } = this.props;
     const { title, id: listId } = list;
 
-    return <Grid container justify="center">
-      <Grid item xs={11} lg={8}>
-        <Card elevation={4}>
-          <CardContent>
-            <Grid container>
-              <Grid item xs={9} lg={7} >
-                <TitleInput
-                  title={title}
-                  updateTitle={(event) => updateListTitle(event.target.value, listId)}
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <IconButton aria-label="Delete" disabled={list.owner !== user.id}>
-                  <DeleteSweep
-                    onClick={() => deleteList(listId, listItems.map((item) => item.id))} />
-                </IconButton>
-              </Grid>
-              <Grid item xs={1}>
-                {this.renderLockOrUnlocked()}
-              </Grid>
-            </Grid>
-            {listItems.map((item, index) =>
-              <ListItem
-                key={item.id}
-                item={item}
-                updateListItem={(newItem) => updateListItem(item.id, newItem, listId)}
-                deleteListItem={() => this.handleDelete(item.id)}
-              />
-            )}
-          </CardContent>
-        </Card>
+    return <div>
+      <Grid container spacing={0}>
+        <Grid item xs={8} lg={7} >
+          <TitleInput
+            title={title}
+            updateTitle={(event) => updateListTitle(event.target.value, listId)}
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <IconButton aria-label="Delete" disabled={list.owner !== user.id}>
+            <DeleteSweep
+              onClick={() => deleteList(listId, listItems.map((item) => item.id))} />
+          </IconButton>
+        </Grid>
+        <Grid item xs={1}>
+          {this.renderLockOrUnlocked()}
+        </Grid>
       </Grid>
-    </Grid>;
+      <AutoSuggestInput
+        addListItem={(attributes) => addListItem(listId, attributes)}
+      />
+      {/* {listItems.map((item, index) =>
+        <ListItem
+          key={item.id}
+          item={item}
+          updateListItem={(newItem) => updateListItem(item.id, newItem, listId)}
+          deleteListItem={() => this.handleDelete(item.id)}
+        />
+      )} */}
+      <Grid container spacing={8}>
+        {listItems.map((item, index) =>
+          <Grid item xs={12} lg={4} key={item.id}>
+            <ListItemCard item={item} />
+          </Grid>
+        )}
+      </Grid>
+    </div>
   }
 
   render() {

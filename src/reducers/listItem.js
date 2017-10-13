@@ -12,15 +12,19 @@ import {
 } from '../actions';
 
 function listItem(state = initialState.listItems, action) {
+  console.log('list item state/action', state, action)
   switch (action.type) {
     case ADD_LIST_ITEM:
       return {
         ...state,
-        ...makeListItem(action.id, action.createdAt)
+        ...makeListItem(action.id, action.createdAt, action.attributes)
       }
     case UPDATE_LIST_ITEM:
       return update(state, {
-        [action.id]: { text: {$set: action.text} }
+        [action.id]: {
+          text: {$set: action.item.text},
+          attributes: {$set: action.item.attributes}
+        }
       })
     case DELETE_LIST_ITEM:
       return omit(state, [action.id])

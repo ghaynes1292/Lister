@@ -24,24 +24,10 @@ class ListItem extends React.Component {
 
     return (
       <Grid container className={classes.root}>
-        <Grid item xs={1} lg={1} >
-          <div className={classes.addIcon}>
-            <Icon>add</Icon>
-          </div>
-        </Grid>
         <Grid item xs={10} >
-          <AutoSuggestInput
-            updateListItem={(value) => updateListItem(value)}
-            value={item.text}
-          />
-        </Grid>
-        <Grid item xs={1} lg={1} >
-          <div className={classes.deleteIcon} onClick={deleteListItem}>
-            <Icon>clear</Icon>
-          </div>
+          
         </Grid>
       </Grid>
-
     );
   }
 }

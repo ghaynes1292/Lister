@@ -78,7 +78,7 @@ function renderSuggestionsContainer(options) {
 }
 
 function getSuggestionValue(suggestion) {
-  return suggestion.title;
+  return suggestion;
 }
 
 const styles = theme => ({
@@ -116,6 +116,7 @@ const styles = theme => ({
 class AutoSuggestInput extends React.Component {
   state = {
     suggestions: [],
+    value: '',
     loading: false
   };
 
@@ -123,13 +124,16 @@ class AutoSuggestInput extends React.Component {
     this.setState({
       loading: true
     })
+    console.log('in  fetch suggestion', value)
     apiFetchSuggestions(value)
     .then((response) => {
+      console.log('response here', response)
       this.setState({
         suggestions: response.d.map((suggestion) => ({
           title: suggestion.l,
           year: suggestion.y,
           star: suggestion.s,
+          id: suggestion.id,
           poster: suggestion.i && suggestion.i[0]
         })),
         loading: false
@@ -143,14 +147,21 @@ class AutoSuggestInput extends React.Component {
     });
   };
 
-  handleChange = (event, { newValue }) => {
-    this.props.updateListItem(newValue)
+  handleChange = (event, value) => {
+    console.log(value)
+    if (value.method === 'type') {
+      this.setState({ value: value.newValue })
+    } else {
+      console.log('a click!', value)
+      this.props.addListItem(value.newValue)
+    }
     this.handleSuggestionsClearRequested()
   };
 
   render() {
-    const { classes, value } = this.props;
-
+    const { classes } = this.props;
+    const { value } = this.state;
+    console.log('value in render', value)
     return (
       <Autosuggest
         theme={{

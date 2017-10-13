@@ -53,11 +53,15 @@ const styles = theme => ({
     height: '100%'
   },
   drawerHeader: theme.mixins.toolbar,
+  docked: {
+    height: '100%'
+  },
   drawerPaper: {
     width: 250,
     height: '100%',
     [theme.breakpoints.up('lg')]: {
       width: drawerWidth,
+      position: 'relative',
       height: '100%',
     },
   },
@@ -130,6 +134,7 @@ class ListDrawer extends React.Component {
               type="temporary"
               open={this.state.mobileOpen}
               classes={{
+                docked: classes.docked,
                 paper: classes.drawerPaper,
               }}
               onRequestClose={this.handleDrawerToggle}
@@ -146,6 +151,7 @@ class ListDrawer extends React.Component {
               open
               classes={{
                 paper: classes.drawerPaper,
+                docked: classes.docked,
               }}
             >
               {drawer}

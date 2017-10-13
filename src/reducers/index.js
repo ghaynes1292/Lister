@@ -10,14 +10,14 @@ import listItems from './listItem';
 import users from './users'
 import userAuth from './userAuth'
 
-export const makeList = (userId = null, item = null, id = uuidv4()) => ({
+export const makeList = (userId = null, id = uuidv4()) => ({
   [id]: {
     id: id,
     createdAt: moment().format(),
     owner: userId,
     title: 'Title Goes here',
     public: true,
-    listItems: item ? [Object.keys(item)[0]] : []
+    listItems: []
   }
 });
 export const newTheme = () => ({
@@ -27,8 +27,22 @@ export const newTheme = () => ({
   }
 });
 
-export const makeListItem = (id, createdAt, text = '') => {
-  return { [id]: { id, text: '', createdAt } };
+export const makeListItem = (id, createdAt, attributes = {}) => {
+  return {
+    [id]: {
+      id,
+      createdAt,
+      attributes: {
+        title: null,
+        year: null,
+        star: null,
+        poster: null,
+        watchDate: null,
+        completed: false,
+        ...attributes
+      }
+    }
+  };
 }
 
 export const newUser = (user, id = uuidv4()) => ({
