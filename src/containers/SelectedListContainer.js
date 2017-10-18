@@ -19,7 +19,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateListTitle(title, id))
     },
     addListItem: (listId, attributes) => {
-      console.log('dispatching', listId, attributes)
       dispatch(addListItem(listId, attributes))
     },
     deleteListItem: (id, listId) => {

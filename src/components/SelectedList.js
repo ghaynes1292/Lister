@@ -10,7 +10,6 @@ import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 
 import TitleInput from './TitleInput';
-import ListItem from './ListItem';
 import ListItemCard from './ListItemCard'
 import AutoSuggestInput from './AutoSuggestInput';
 
@@ -25,10 +24,7 @@ const styles = theme => ({
 class SelectedList extends Component {
   handleDelete(id) {
     const { listItems, deleteListItem, list } = this.props;
-
-    if (listItems.length > 1) {
-      deleteListItem(id, list.id);
-    }
+    deleteListItem(id, list.id);
   }
 
   renderNoneSelected () {
@@ -86,21 +82,21 @@ class SelectedList extends Component {
       <AutoSuggestInput
         addListItem={(attributes) => addListItem(listId, attributes)}
       />
-      {/* {listItems.map((item, index) =>
-        <ListItem
-          key={item.id}
-          item={item}
-          updateListItem={(newItem) => updateListItem(item.id, newItem, listId)}
-          deleteListItem={() => this.handleDelete(item.id)}
-        />
-      )} */}
-      <Grid container spacing={8}>
-        {listItems.map((item, index) =>
-          <Grid item xs={12} lg={4} key={item.id}>
-            <ListItemCard item={item} />
-          </Grid>
-        )}
-      </Grid>
+      {listItems.length > 0
+        ? <Grid container spacing={8}>
+            {listItems.map((item, index) =>
+              <Grid item xs={12} lg={4} key={item.id}>
+                <ListItemCard
+                  item={item}
+                  deleteListItem={() => this.handleDelete(item.id)}
+                />
+              </Grid>
+            )}
+        </Grid>
+        : <Typography type="display3" align='center' gutterBottom>
+          No List Items
+        </Typography>
+      }
     </div>
   }
 

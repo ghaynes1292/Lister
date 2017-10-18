@@ -46,8 +46,10 @@ class RecipeReviewCard extends React.Component {
   };
 
   render() {
-    const { classes, item } = this.props;
-    const subHeaderText = item.attributes && `${item.attributes.star || ''} ${item.attributes.year ? `${item.attributes.year}` : ''}`
+    const { classes, item, deleteListItem } = this.props;
+    const subHeaderText = item.attributes && `${item.attributes.star || ''} ${item.attributes.year
+      ? `${item.attributes.year}`
+      : ''}`
     return (
       <div>
         <Card className={classes.card}>
@@ -68,7 +70,7 @@ class RecipeReviewCard extends React.Component {
             <IconButton aria-label="Add to favorites">
               <DoneIcon />
             </IconButton>
-            <IconButton aria-label="Add to favorites">
+            <IconButton aria-label="Add to favorites" onClick={deleteListItem}>
               <ClearIcon />
             </IconButton>
             <div className={classes.flexGrow} />

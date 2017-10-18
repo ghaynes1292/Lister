@@ -6,7 +6,6 @@ import { addList } from '../actions';
 import { getCurrentUser } from '../reducers/selectors';
 
 const mapStateToProps = state => {
-  console.log('current user', getCurrentUser(state))
   return {
     user: getCurrentUser(state)
   }

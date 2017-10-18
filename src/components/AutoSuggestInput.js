@@ -18,8 +18,7 @@ function renderInput(inputProps) {
       <TextField
         autoFocus={autoFocus}
         className={classes.textField}
-        placeholder='List Element'
-        multiline
+        placeholder='New Item'
         value={value}
         inputRef={ref}
         InputProps={{
@@ -124,10 +123,8 @@ class AutoSuggestInput extends React.Component {
     this.setState({
       loading: true
     })
-    console.log('in  fetch suggestion', value)
     apiFetchSuggestions(value)
     .then((response) => {
-      console.log('response here', response)
       this.setState({
         suggestions: response.d.map((suggestion) => ({
           title: suggestion.l,
@@ -144,24 +141,22 @@ class AutoSuggestInput extends React.Component {
   handleSuggestionsClearRequested = () => {
     this.setState({
       suggestions: [],
+      value: ''
     });
   };
 
   handleChange = (event, value) => {
-    console.log(value)
     if (value.method === 'type') {
       this.setState({ value: value.newValue })
     } else {
-      console.log('a click!', value)
       this.props.addListItem(value.newValue)
     }
-    this.handleSuggestionsClearRequested()
   };
 
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-    console.log('value in render', value)
+
     return (
       <Autosuggest
         theme={{
@@ -178,7 +173,7 @@ class AutoSuggestInput extends React.Component {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: false,
+          autoFocus: true,
           classes,
           value: value,
           onChange: this.handleChange,

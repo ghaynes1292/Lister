@@ -7,10 +7,9 @@ import { newTheme } from '../reducers'
 
 export const getSelectedList = (state) => getCurrentUser(state) ? state.lists[getCurrentUser(state).selectedList] : null
 export const getFirstList = (state) => Object.values(state.lists)[0]
-export const getSelectedListItems = (state) => getSelectedList(state)
+export const getSelectedListItems = (state) => getSelectedList(state) && getSelectedList(state).listItems
   ? filter(state.listItems, (o) => getSelectedList(state).listItems.includes(o.id))
   : []
-
 
 export const getFirstListItems = (state) =>
   filter(state.listItems, (o) => getFirstList(state).listItems.includes(o.id))

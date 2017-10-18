@@ -12,7 +12,6 @@ import {
 } from '../actions';
 
 function listItem(state = initialState.listItems, action) {
-  console.log('list item state/action', state, action)
   switch (action.type) {
     case ADD_LIST_ITEM:
       return {
