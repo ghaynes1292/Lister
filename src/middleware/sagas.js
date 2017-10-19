@@ -9,23 +9,17 @@ import {
   UPDATE_LIST_ITEM,
   DELETE_LIST,
   DELETE_LIST_ITEM,
-  UPDATE_PRIMARY_COLOR,
-  RECEIVE_PERSISTED_THEME,
   LOGIN_USER,
   UNLOCK_LIST,
   LOCK_LIST,
   CREATE_USER,
   UPDATE_USER,
   ADD_LIST_USER,
-  addListUser,
   updateUser,
-  addListItem,
-  deleteListItem,
   createUser,
-  selectListUser
 } from '../actions'
 
-import {  getSelectedListItems, getCurrentUser, getLastList } from '../reducers/selectors';
+import { getCurrentUser, getLastList } from '../reducers/selectors';
 
 function* maintainUser(action) {
   try {
@@ -96,7 +90,6 @@ function* firebaseStorageSaga() {
     takeEvery([ADD_LIST_ITEM, UPDATE_LIST_ITEM, DELETE_LIST, DELETE_LIST_ITEM], persistListItems),
     takeEvery([ADD_LIST, UPDATE_LIST_TITLE, UNLOCK_LIST, LOCK_LIST, DELETE_LIST,
       ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
-    takeEvery([UPDATE_PRIMARY_COLOR], persistTheme),
   ]
 }
 

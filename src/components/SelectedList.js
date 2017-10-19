@@ -8,6 +8,7 @@ import LockOutline from 'material-ui-icons/LockOutline';
 import LockOpen from 'material-ui-icons/LockOpen';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
+import moment from 'moment';
 
 import TitleInput from './TitleInput';
 import ListItemCard from './ListItemCard'
@@ -25,6 +26,19 @@ class SelectedList extends Component {
   handleDelete(id) {
     const { listItems, deleteListItem, list } = this.props;
     deleteListItem(id, list.id);
+  }
+
+  handleWatched(index) {
+    const { listItems, deleteListItem, list, updateListItem } = this.props;
+    const newListItem = {
+      ...listItems[index],
+      attributes: {
+        ...listItems[index].attributes,
+        watchDate: moment(),
+        completed: !listItems[index].attributes.completed
+      }
+    };
+    updateListItem(listItems[index].id, newListItem, list.id)
   }
 
   renderNoneSelected () {
@@ -89,6 +103,7 @@ class SelectedList extends Component {
                 <ListItemCard
                   item={item}
                   deleteListItem={() => this.handleDelete(item.id)}
+                  setWatched={() => this.handleWatched(index)}
                 />
               </Grid>
             )}

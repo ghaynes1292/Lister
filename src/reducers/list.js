@@ -7,7 +7,6 @@ import { initialState, makeList } from '../reducers'
 import {
   ADD_LIST,
   UPDATE_LIST_TITLE,
-  CLEAR_LIST,
   DELETE_LIST,
   RECEIVE_PERSISTED_LISTS,
   ADD_LIST_ITEM,

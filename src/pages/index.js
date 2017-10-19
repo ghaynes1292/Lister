@@ -4,7 +4,6 @@ import withStyles from 'material-ui/styles/withStyles';
 import withRoot from '../components/withRoot';
 
 import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
 
 import SelectedListContainer from '../containers/SelectedListContainer';
 import AddListContainer from '../containers/AddListContainer';

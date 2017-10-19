@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import SelectedList from '../components/SelectedList'
 
-import { updateListTitle, addListItem, deleteListItem, deleteList, lockList, unlockList } from '../actions'
+import { updateListTitle, addListItem, updateListItem, deleteListItem, deleteList, lockList, unlockList } from '../actions'
 import { getSelectedList, sortedListItems, getCurrentUser } from '../reducers/selectors';
 
 const mapStateToProps = state => {
@@ -20,6 +20,9 @@ const mapDispatchToProps = dispatch => {
     },
     addListItem: (listId, attributes) => {
       dispatch(addListItem(listId, attributes))
+    },
+    updateListItem: (id, item, listId) => {
+      dispatch(updateListItem(id, item, listId))
     },
     deleteListItem: (id, listId) => {
       dispatch(deleteListItem(id, listId))

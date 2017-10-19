@@ -12,6 +12,8 @@ import DoneIcon from 'material-ui-icons/Done';
 import FavoriteIcon from 'material-ui-icons/Favorite';
 import ClearIcon from 'material-ui-icons/Clear';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+import Grid from 'material-ui/Grid';
+import moment from 'moment';
 
 const styles = theme => ({
   card: {
@@ -45,8 +47,26 @@ class RecipeReviewCard extends React.Component {
     this.setState({ expanded: !this.state.expanded });
   };
 
+  renderSubHeader () {
+    const { item: { attributes } } = this.props;
+
+    return <Grid container spacing={0}>
+      <Grid item xs={9} >
+        <Typography type='caption'>{attributes.star}</Typography>
+      </Grid>
+      <Grid item xs={3} >
+        <Typography type='caption'>{attributes.year}</Typography>
+      </Grid>
+      <Grid item xs={12} >
+        {attributes.watchDate &&
+          <Typography type='caption'>Watched {moment.duration(moment() - attributes.watchDate).humanize()} ago</Typography>
+        }
+      </Grid>
+    </Grid>;
+  }
+
   render() {
-    const { classes, item, deleteListItem } = this.props;
+    const { classes, item, deleteListItem, setWatched } = this.props;
     const subHeaderText = item.attributes && `${item.attributes.star || ''} ${item.attributes.year
       ? `${item.attributes.year}`
       : ''}`
@@ -61,14 +81,14 @@ class RecipeReviewCard extends React.Component {
                 className={classes.avatar} />
             }
             title={(item.attributes && item.attributes.title) || item.text}
-            subheader={subHeaderText}
+            subheader={this.renderSubHeader()}
           />
           <CardActions disableActionSpacing>
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon />
             </IconButton>
-            <IconButton aria-label="Add to favorites">
-              <DoneIcon />
+            <IconButton aria-label="Add to favorites" onClick={setWatched}>
+              <DoneIcon color={item.attributes.completed ? 'green' : 'grey'} />
             </IconButton>
             <IconButton aria-label="Add to favorites" onClick={deleteListItem}>
               <ClearIcon />
