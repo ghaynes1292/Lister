@@ -2,16 +2,24 @@ export const apiFetchSuggestions = (text) => {
   const lowerCase = text.toLowerCase()
   return new Promise((resolve, reject) => {
     const xmlhttp = new XMLHttpRequest();
-    const url = `https://cors-proxy.htmldriven.com/?url=https://sg.media-imdb.com/suggests/${lowerCase.charAt(0)}/${lowerCase}.json`;
-
+    const url = `https://cors-anywhere.herokuapp.com/https://sg.media-imdb.com/suggests/${lowerCase.charAt(0)}/${lowerCase}.json`;
+    // var myHeaders = new Headers();
+    // myHeaders.append('Content-Type', 'json');
+    // const config = { method: 'GET',
+    //           headers: myHeaders,
+    //            cache: 'default' };
+    // const myRequest = new Request(url, config);
+    // fetch(myRequest).then(function(response) {
+    //   console.log('response here', response.body)
+    //     return response.blob();
+    // })
+    // .then(function(response) {
+    //   console.log('response', response)
+    // })
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
-        const response = JSON.parse(this.responseText);
-        response.success
-          ? resolve(JSON.parse(response.body.slice(6 + text.length, -1)))
-          : reject('error fetching the suggestions')
+        resolve(JSON.parse(this.responseText.slice(6 + text.length, -1)))
       }
-
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
