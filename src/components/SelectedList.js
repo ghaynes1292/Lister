@@ -34,7 +34,7 @@ class SelectedList extends Component {
       ...listItems[index],
       attributes: {
         ...listItems[index].attributes,
-        watchDate: moment(),
+        watchDate: moment().format(),
         completed: !listItems[index].attributes.completed
       }
     };

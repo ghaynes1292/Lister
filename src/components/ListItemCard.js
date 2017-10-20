@@ -58,8 +58,10 @@ class RecipeReviewCard extends React.Component {
         <Typography type='caption'>{attributes.year}</Typography>
       </Grid>
       <Grid item xs={12} >
-        {attributes.watchDate &&
-          <Typography type='caption'>Watched {moment.duration(moment() - attributes.watchDate).humanize()} ago</Typography>
+        {attributes.watchDate && attributes.completed &&
+          <Typography type='caption'>
+            Watched {moment.duration(moment().diff(moment(attributes.watchDate))).humanize()} ago
+          </Typography>
         }
       </Grid>
     </Grid>;

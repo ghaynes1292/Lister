@@ -1,7 +1,7 @@
 import { takeEvery, select, put, fork, all } from 'redux-saga/effects';
 import find from 'lodash/find';
 import { saveUser } from '../util/storageUtil';
-import { fbPersistLists, fbPersistListItems, fbPersistTheme } from '../util/firebase';
+import { fbPersistLists, fbPersistListItems, fbPersistTheme, fbPersistListItem } from '../util/firebase';
 import {
   ADD_LIST,
   ADD_LIST_ITEM,
@@ -76,6 +76,14 @@ function* persistListItems() {
   }
 }
 
+function* persistListItem(action) {
+  try {
+    fbPersistListItem(action.item)
+  } catch(e) {
+    yield e
+  }
+}
+
 function* persistTheme() {
   try {
     const theme = yield select(state => state.theme)
@@ -87,7 +95,8 @@ function* persistTheme() {
 
 function* firebaseStorageSaga() {
   yield [
-    takeEvery([ADD_LIST_ITEM, UPDATE_LIST_ITEM, DELETE_LIST, DELETE_LIST_ITEM], persistListItems),
+    takeEvery([ADD_LIST_ITEM, DELETE_LIST, DELETE_LIST_ITEM], persistListItems),
+    takeEvery([UPDATE_LIST_ITEM], persistListItem),
     takeEvery([ADD_LIST, UPDATE_LIST_TITLE, UNLOCK_LIST, LOCK_LIST, DELETE_LIST,
       ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
   ]
