@@ -48,7 +48,7 @@ class SelectedList extends Component {
       ...listItems[index],
       attributes: {
         ...listItems[index].attributes,
-        watchDate: moment().format(),
+        watchDate: !listItems[index].attributes.watchDate ? moment().format() : listItems[index].attributes.watchDate,
         completed: true,
         liked: status === listItems[index].attributes.liked ? 1 : status
       }

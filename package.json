@@ -1,6 +1,6 @@
 {
   "name": "List",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "private": true,
   "dependencies": {
     "autosuggest-highlight": "^3.1.0",
