@@ -9,7 +9,8 @@ import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
 import DoneIcon from 'material-ui-icons/Done';
-import FavoriteIcon from 'material-ui-icons/Favorite';
+import ThumbUp from 'material-ui-icons/ThumbUp';
+import ThumbDown from 'material-ui-icons/ThumbDown';
 import ClearIcon from 'material-ui-icons/Clear';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import Grid from 'material-ui/Grid';
@@ -18,6 +19,8 @@ import moment from 'moment';
 const styles = theme => ({
   card: {
     maxWidth: 400,
+    transition: 'all .3s linear',
+    // }
   },
   media: {
     height: 194,
@@ -68,13 +71,21 @@ class RecipeReviewCard extends React.Component {
   }
 
   render() {
-    const { classes, item, deleteListItem, setWatched } = this.props;
-    const subHeaderText = item.attributes && `${item.attributes.star || ''} ${item.attributes.year
-      ? `${item.attributes.year}`
-      : ''}`
+    const { classes, item, deleteListItem, setWatched, setLiked, setDisliked } = this.props;
+    let cardBackground;
+    if (item.attributes.completed) {
+      switch(item.attributes.liked) {
+        case 0: cardBackground = 'rgba(255, 0, 0, .2)';break;
+        case 1: cardBackground = 'rgba(211,211,211, .2)';break;
+        case 2: cardBackground = 'rgba(0, 128, 0, .2)';break;
+      }
+    } else {
+      cardBackground = ''
+    }
+
     return (
       <div>
-        <Card className={classes.card}>
+        <Card className={classes.card} style={{ backgroundColor: cardBackground }}>
           <CardHeader
             avatar={
               <Avatar
@@ -86,8 +97,11 @@ class RecipeReviewCard extends React.Component {
             subheader={this.renderSubHeader()}
           />
           <CardActions disableActionSpacing>
-            <IconButton aria-label="Add to favorites">
-              <FavoriteIcon />
+            <IconButton aria-label="Dislike" onClick={setDisliked}>
+              <ThumbDown color={item.attributes.liked === 0 ? 'red' : 'grey'}/>
+            </IconButton>
+            <IconButton aria-label="Like" onClick={setLiked}>
+              <ThumbUp color={item.attributes.liked === 2 ? 'green' : 'grey'}/>
             </IconButton>
             <IconButton aria-label="Add to favorites" onClick={setWatched}>
               <DoneIcon color={item.attributes.completed ? 'green' : 'grey'} />

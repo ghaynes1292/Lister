@@ -39,6 +39,7 @@ export const makeListItem = (id, createdAt, attributes = {}) => {
         poster: null,
         watchDate: null,
         completed: false,
+        liked: 0,
         ...attributes
       }
     }

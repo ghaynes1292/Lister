@@ -35,7 +35,22 @@ class SelectedList extends Component {
       attributes: {
         ...listItems[index].attributes,
         watchDate: moment().format(),
-        completed: !listItems[index].attributes.completed
+        completed: !listItems[index].attributes.completed,
+        liked: 1
+      }
+    };
+    updateListItem(listItems[index].id, newListItem, list.id)
+  }
+
+  handleLikeDislike(index, status) {
+    const { listItems, deleteListItem, list, updateListItem } = this.props;
+    const newListItem = {
+      ...listItems[index],
+      attributes: {
+        ...listItems[index].attributes,
+        watchDate: moment().format(),
+        completed: true,
+        liked: status === listItems[index].attributes.liked ? 1 : status
       }
     };
     updateListItem(listItems[index].id, newListItem, list.id)
@@ -104,6 +119,8 @@ class SelectedList extends Component {
                   item={item}
                   deleteListItem={() => this.handleDelete(item.id)}
                   setWatched={() => this.handleWatched(index)}
+                  setLiked={() => this.handleLikeDislike(index, 2)}
+                  setDisliked={() => this.handleLikeDislike(index, 0)}
                 />
               </Grid>
             )}
