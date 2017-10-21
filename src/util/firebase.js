@@ -18,12 +18,10 @@ export const dbListRef = firebase.database().ref('lists/');
 export const dbThemeRef = firebase.database().ref('theme/');
 
 export const fbPersistListItems = (listItems) => {
-  console.log('persist list items', listItems)
   dbListItemRef.set(listItems);
 }
 
 export const fbPersistListItem = (listItem) => {
-  console.log('persist list item', listItem)
   firebase.database().ref('listItems/' + listItem.id).set(listItem);
 }
 

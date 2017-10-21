@@ -13,6 +13,7 @@ import moment from 'moment';
 import TitleInput from './TitleInput';
 import ListItemCard from './ListItemCard'
 import AutoSuggestInput from './AutoSuggestInput';
+import FilterContainer from '../containers/FilterContainer';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -20,6 +21,11 @@ const styles = theme => ({
     paddingBottom: 16,
     marginTop: theme.spacing.unit * 3,
   }),
+  filter: {
+    textAlign: 'right',
+    paddingTop: 5,
+    paddingBottom: 5,
+  }
 });
 
 class SelectedList extends Component {
@@ -111,6 +117,9 @@ class SelectedList extends Component {
       <AutoSuggestInput
         addListItem={(attributes) => addListItem(listId, attributes)}
       />
+      <div className={classes.filter}>
+        <FilterContainer />
+      </div>
       {listItems.length > 0
         ? <Grid container spacing={8}>
             {listItems.map((item, index) =>

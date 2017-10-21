@@ -4,11 +4,16 @@ import moment from 'moment';
 import { orange, blueGrey } from 'material-ui/colors';
 
 import { getUser } from '../util/storageUtil';
+import {
+  ASCENDING,
+  ADDED
+} from '../util/filter'
 
 import lists from './list';
 import listItems from './listItem';
 import users from './users'
 import userAuth from './userAuth'
+import filter from './filter';
 
 export const makeList = (userId = null, id = uuidv4()) => ({
   [id]: {
@@ -39,7 +44,7 @@ export const makeListItem = (id, createdAt, attributes = {}) => {
         poster: null,
         watchDate: null,
         completed: false,
-        liked: 0,
+        liked: 1,
         ...attributes
       }
     }
@@ -64,14 +69,19 @@ export const initialState = {
   users: {
     [currentUser.id]: currentUser
   },
-  userAuth: currentUser
+  userAuth: currentUser,
+  filter: {
+    direction: ASCENDING,
+    type: ADDED
+  }
 };
 
 const rootReducer = combineReducers({
   listItems,
   lists,
   userAuth,
-  users
+  users,
+  filter
 })
 
 export default rootReducer

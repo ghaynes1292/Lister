@@ -1,7 +1,7 @@
-import filter from 'lodash/filter'
-import sortBy from 'lodash/sortBy'
-import last from 'lodash/last'
-
+import filter from 'lodash/filter';
+import sortBy from 'lodash/sortBy';
+import last from 'lodash/last';
+import get from 'lodash/get';
 
 import { newTheme } from '../reducers'
 
@@ -14,7 +14,7 @@ export const getSelectedListItems = (state) => getSelectedList(state) && getSele
 export const getFirstListItems = (state) =>
   filter(state.listItems, (o) => getFirstList(state).listItems.includes(o.id))
 
-export const sortedListItems = (state) => sortBy(getSelectedListItems(state), (o) => o.createdAt)
+export const sortedListItems = (state) => sortBy(getSelectedListItems(state), (o) => get(o, state.filter.type))
 
 export const getCurrentUser = (state) => {
   return state.userAuth ? state.users[state.userAuth.id] : null

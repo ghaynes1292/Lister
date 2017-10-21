@@ -26,6 +26,8 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const ADD_LIST_USER = 'ADD_LIST_USER';
 export const SELECT_LIST = 'SELECT_LIST';
 
+export const UPDATE_FILTER = 'UPDATE_FILTER';
+
 /*
  * action creators
  */
@@ -52,3 +54,5 @@ export const deleteListItem = (id, listId) => ({ type: DELETE_LIST_ITEM, id, lis
 export const updateListItem = (id, item, listId) => ({ type: UPDATE_LIST_ITEM, id, item, listId })
 
 export const updatePrimaryColor = (color) => ({ type: UPDATE_PRIMARY_COLOR, color })
+
+export const updateFilter = (filter) => ({ type: UPDATE_FILTER, filter })
