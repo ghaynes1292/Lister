@@ -149,7 +149,6 @@ class AutoSuggestInput extends React.Component {
     if (value.method === 'type') {
       this.setState({ value: value.newValue })
     } else {
-      console.log('adding new value', value.newValue)
       this.props.addListItem(value.newValue)
     }
   };

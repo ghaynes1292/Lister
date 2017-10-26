@@ -15,12 +15,16 @@ import ClearIcon from 'material-ui-icons/Clear';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import Grid from 'material-ui/Grid';
 import moment from 'moment';
+import without from 'lodash/without'
 
 const styles = theme => ({
   card: {
     maxWidth: 400,
     transition: 'all .3s linear',
     // }
+  },
+  media: {
+    height: 400
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -65,6 +69,21 @@ class RecipeReviewCard extends React.Component {
         }
       </Grid>
     </Grid>;
+  }
+
+  renderField (keys, type, decorator = null) {
+    const { item } = this.props;
+    return item.attributes
+      ? <Typography type={type}>
+        {decorator
+          ? <strong style={{ fontWeight: 500 }}>
+            {`${decorator} : `}
+          </strong>
+          : null
+        }
+        {without(keys.map((key) => item.attributes[key] ? item.attributes[key] : null), null).join(' | ')}
+    </Typography>
+    : null
   }
 
   render() {
@@ -120,9 +139,20 @@ class RecipeReviewCard extends React.Component {
           </CardActions>
           <Collapse in={this.state.expanded} transitionDuration="auto" unmountOnExit>
             <CardContent>
-              <Typography paragraph type="body2">
-                Method:
+              {this.renderField(['Production', 'Released'], 'body1')}
+              {this.renderField(['Director'], 'body1', 'Director')}
+              {this.renderField(['Writer'], 'body1', 'Writer')}
+              {this.renderField(['Runtime'], 'body1', 'Runtime')}
+              {this.renderField(['Awards'], 'body1', 'Awards')}
+              {this.renderField(['BoxOffice'], 'body1', 'Box Office')}
+              {item.attributes.Ratings.map(({ Source, Value }) =>
+              <Typography key={Source}>
+                <strong style={{ fontWeight: 500 }}>{Source} : </strong>{Value}
               </Typography>
+              )}
+            </CardContent>
+            <CardContent>
+              {this.renderField(['Plot'], 'body1', 'Plot')}
             </CardContent>
           </Collapse>
         </Card>

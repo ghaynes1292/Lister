@@ -90,7 +90,6 @@ function* persistListItem(action) {
 
 function* persistListItemUpdate(action) {
   try {
-    console.log('going to persistListItemUpdate', action)
     fbPersistListItem(omit(action.payload, 'listId'))
   } catch(e) {
     yield e
@@ -127,7 +126,6 @@ function* localSaveUser() {
 
 function* populateListItem(action) {
   try {
-    console.log('this is what the action looks like', action)
     yield put(fetchCompleteListItem(action.id, action.attributes, action.listId))
   } catch(e) {
     yield e
