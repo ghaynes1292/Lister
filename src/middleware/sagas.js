@@ -1,5 +1,7 @@
 import { takeEvery, select, put, fork, all } from 'redux-saga/effects';
 import find from 'lodash/find';
+import omit from 'lodash/omit';
+
 import { saveUser } from '../util/storageUtil';
 import { fbPersistLists, fbPersistListItems, fbPersistTheme, fbPersistListItem } from '../util/firebase';
 import {
@@ -7,6 +9,7 @@ import {
   ADD_LIST_ITEM,
   UPDATE_LIST_TITLE,
   UPDATE_LIST_ITEM,
+  FETCH_COMPLETE_LIST_ITEM,
   DELETE_LIST,
   DELETE_LIST_ITEM,
   LOGIN_USER,
@@ -17,6 +20,7 @@ import {
   ADD_LIST_USER,
   updateUser,
   createUser,
+  fetchCompleteListItem,
 } from '../actions'
 
 import { getCurrentUser, getLastList } from '../reducers/selectors';
@@ -84,6 +88,15 @@ function* persistListItem(action) {
   }
 }
 
+function* persistListItemUpdate(action) {
+  try {
+    console.log('going to persistListItemUpdate', action)
+    fbPersistListItem(omit(action.payload, 'listId'))
+  } catch(e) {
+    yield e
+  }
+}
+
 function* persistTheme() {
   try {
     const theme = yield select(state => state.theme)
@@ -97,6 +110,7 @@ function* firebaseStorageSaga() {
   yield [
     takeEvery([ADD_LIST_ITEM, DELETE_LIST, DELETE_LIST_ITEM], persistListItems),
     takeEvery([UPDATE_LIST_ITEM], persistListItem),
+    takeEvery([`${FETCH_COMPLETE_LIST_ITEM}_FULFILLED`], persistListItemUpdate),
     takeEvery([ADD_LIST, UPDATE_LIST_TITLE, UNLOCK_LIST, LOCK_LIST, DELETE_LIST,
       ADD_LIST_ITEM, DELETE_LIST_ITEM], persistLists),
   ]
@@ -111,6 +125,21 @@ function* localSaveUser() {
   }
 }
 
+function* populateListItem(action) {
+  try {
+    console.log('this is what the action looks like', action)
+    yield put(fetchCompleteListItem(action.id, action.attributes, action.listId))
+  } catch(e) {
+    yield e
+  }
+}
+
+function* listItemSaga() {
+  yield [
+    takeEvery([ADD_LIST_ITEM], populateListItem),
+  ]
+}
+
 function* localStorageSaga() {
   yield [
     takeEvery([CREATE_USER, UPDATE_USER, ADD_LIST_USER], localSaveUser),
@@ -123,5 +152,6 @@ export default function* rootSaga() {
     fork(listUserSaga),
     fork(firebaseStorageSaga),
     fork(userSaga),
+    fork(listItemSaga)
   ])
 }

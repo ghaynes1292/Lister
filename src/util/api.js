@@ -1,3 +1,7 @@
+import pick from 'lodash/pick';
+
+import { imdbFields } from './constants';
+
 export const apiFetchSuggestions = (text) => {
   const lowerCase = text.toLowerCase()
   return new Promise((resolve, reject) => {
@@ -16,6 +20,8 @@ export const apiFetchSuggestions = (text) => {
     // .then(function(response) {
     //   console.log('response', response)
     // })
+
+    //fe67fb4d
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         resolve(JSON.parse(this.responseText.slice(6 + text.length, -1)))
@@ -24,4 +30,24 @@ export const apiFetchSuggestions = (text) => {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
   });
+}
+
+export const fetchCompleteListItemApi = (id, attributes, listId) => {
+  console.log(id, attributes, listId)
+  return new Promise(resolve => {
+    fetch(`http://www.omdbapi.com/?i=${attributes.id}&apikey=fe67fb4d`).then((resp) => {
+      return resp.json()
+    }).then((something) => {
+      console.log('hi', something)
+      const newItem = {
+        id,
+        listId,
+        attributes: {
+          ...attributes,
+          ...pick(something, imdbFields)
+        }
+      }
+      resolve(newItem)
+    })
+  })
 }

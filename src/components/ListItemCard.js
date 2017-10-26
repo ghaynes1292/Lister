@@ -22,9 +22,6 @@ const styles = theme => ({
     transition: 'all .3s linear',
     // }
   },
-  media: {
-    height: 194,
-  },
   expand: {
     transform: 'rotate(0deg)',
     transition: theme.transitions.create('transform', {
@@ -55,10 +52,10 @@ class RecipeReviewCard extends React.Component {
 
     return <Grid container spacing={0}>
       <Grid item xs={9} >
-        <Typography type='caption'>{attributes.star}</Typography>
+        <Typography type='caption'>{attributes.Actors}</Typography>
       </Grid>
       <Grid item xs={3} >
-        <Typography type='caption'>{attributes.year}</Typography>
+        <Typography type='caption'>{attributes.Year}</Typography>
       </Grid>
       <Grid item xs={12} >
         {attributes.watchDate && attributes.completed &&
@@ -89,11 +86,11 @@ class RecipeReviewCard extends React.Component {
           <CardHeader
             avatar={
               <Avatar
-                src={item.attributes && item.attributes.poster}
+                src={item.attributes && item.attributes.Poster}
                 aria-label="Recipe"
                 className={classes.avatar} />
             }
-            title={(item.attributes && item.attributes.title) || item.text}
+            title={(item.attributes && item.attributes.Title) || item.text}
             subheader={this.renderSubHeader()}
           />
           <CardActions disableActionSpacing>
@@ -123,6 +120,9 @@ class RecipeReviewCard extends React.Component {
           </CardActions>
           <Collapse in={this.state.expanded} transitionDuration="auto" unmountOnExit>
             <CardContent>
+              <Typography paragraph type="body2">
+                Method:
+              </Typography>
             </CardContent>
           </Collapse>
         </Card>

@@ -34,14 +34,14 @@ function renderInput(inputProps) {
 }
 
 function renderSuggestion(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion.title, query);
-  const parts = parse(suggestion.title, matches);
+  const matches = match(suggestion.Title, query);
+  const parts = parse(suggestion.Title, matches);
 
   return (
     <MenuItem selected={isHighlighted} component="div">
-      {suggestion.poster &&
+      {suggestion.Poster &&
         <img
-          src={suggestion.poster}
+          src={suggestion.Poster}
           alt=''
           style={{ minWidth: '45px', minHeight: '45px', maxWidth: '45px', maxHeight: '45px', paddingRight: '10px' }}
         />}
@@ -59,7 +59,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
         })}
         <br />
         <span style={{ fontWeight: 300 }}>
-          {suggestion.star}&nbsp;({suggestion.year})
+          {suggestion.Actors}&nbsp;({suggestion.Year})
         </span>
       </div>
     </MenuItem>
@@ -127,11 +127,11 @@ class AutoSuggestInput extends React.Component {
     .then((response) => {
       this.setState({
         suggestions: response.d.map((suggestion) => ({
-          title: suggestion.l,
-          year: suggestion.y,
-          star: suggestion.s,
+          Title: suggestion.l,
+          Year: suggestion.y,
+          Actors: suggestion.s,
           id: suggestion.id,
-          poster: suggestion.i && suggestion.i[0]
+          Poster: suggestion.i && suggestion.i[0]
         })),
         loading: false
       })
@@ -149,6 +149,7 @@ class AutoSuggestInput extends React.Component {
     if (value.method === 'type') {
       this.setState({ value: value.newValue })
     } else {
+      console.log('adding new value', value.newValue)
       this.props.addListItem(value.newValue)
     }
   };

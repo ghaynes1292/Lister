@@ -1,10 +1,13 @@
 import uuidv4 from 'uuid/v4';
 import moment from 'moment';
 
+import { fetchCompleteListItemApi } from './util/api';
+
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const UPDATE_LIST_ITEM = 'UPDATE_LIST_ITEM';
 export const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM';
 export const RECEIVE_PERSISTED_LIST_ITEMS = 'RECEIVE_PERSISTED_LIST_ITEMS';
+export const FETCH_COMPLETE_LIST_ITEM = 'FETCH_COMPLETE_LIST_ITEM';
 
 export const ADD_LIST = 'ADD_LIST';
 export const UPDATE_LIST_TITLE = 'UPDATE_LIST_TITLE';
@@ -52,6 +55,11 @@ export const updateListTitle = (title, listId) => ({ type: UPDATE_LIST_TITLE, ti
 export const addListItem = (listId, attributes) => ({ type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format(), listId, attributes })
 export const deleteListItem = (id, listId) => ({ type: DELETE_LIST_ITEM, id, listId })
 export const updateListItem = (id, item, listId) => ({ type: UPDATE_LIST_ITEM, id, item, listId })
+export const fetchCompleteListItem = (id, attributes, listId) => ({
+  type: FETCH_COMPLETE_LIST_ITEM,
+  payload: fetchCompleteListItemApi(id, attributes, listId)
+})
+
 
 export const updatePrimaryColor = (color) => ({ type: UPDATE_PRIMARY_COLOR, color })
 

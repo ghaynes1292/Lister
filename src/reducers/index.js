@@ -38,12 +38,13 @@ export const makeListItem = (id, createdAt, attributes = {}) => {
       id,
       createdAt,
       attributes: {
-        title: null,
-        year: null,
-        star: null,
-        poster: null,
+        Title: null,
+        Year: null,
+        Actors: null,
+        Poster: null,
         watchDate: null,
         completed: false,
+        id: null,
         liked: 1,
         ...attributes
       }
