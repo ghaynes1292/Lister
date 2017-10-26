@@ -34,7 +34,7 @@ export const apiFetchSuggestions = (text) => {
 
 export const fetchCompleteListItemApi = (id, attributes, listId) => {
   return new Promise(resolve => {
-    fetch(`http://www.omdbapi.com/?i=${attributes.id}&apikey=fe67fb4d`).then((resp) => {
+    fetch(`https://www.omdbapi.com/?i=${attributes.id}&apikey=fe67fb4d`).then((resp) => {
       return resp.json()
     }).then((something) => {
       const newItem = {

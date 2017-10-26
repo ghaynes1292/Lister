@@ -145,7 +145,7 @@ class RecipeReviewCard extends React.Component {
               {this.renderField(['Runtime'], 'body1', 'Runtime')}
               {this.renderField(['Awards'], 'body1', 'Awards')}
               {this.renderField(['BoxOffice'], 'body1', 'Box Office')}
-              {item.attributes.Ratings.map(({ Source, Value }) =>
+              {item.attributes.Ratings && item.attributes.Ratings.map(({ Source, Value }) =>
               <Typography key={Source}>
                 <strong style={{ fontWeight: 500 }}>{Source} : </strong>{Value}
               </Typography>
