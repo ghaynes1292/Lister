@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import DeleteSweep from 'material-ui-icons/DeleteSweep';
 import LockOutline from 'material-ui-icons/LockOutline';
@@ -30,12 +29,12 @@ const styles = theme => ({
 
 class SelectedList extends Component {
   handleDelete(id) {
-    const { listItems, deleteListItem, list } = this.props;
+    const { deleteListItem, list } = this.props;
     deleteListItem(id, list.id);
   }
 
   handleWatched(index) {
-    const { listItems, deleteListItem, list, updateListItem } = this.props;
+    const { listItems, list, updateListItem } = this.props;
     const newListItem = {
       ...listItems[index],
       attributes: {
@@ -49,7 +48,7 @@ class SelectedList extends Component {
   }
 
   handleLikeDislike(index, status) {
-    const { listItems, deleteListItem, list, updateListItem } = this.props;
+    const { listItems, list, updateListItem } = this.props;
     const newListItem = {
       ...listItems[index],
       attributes: {
@@ -89,10 +88,7 @@ class SelectedList extends Component {
       user,
       updateListTitle,
       addListItem,
-      clearList,
       deleteList,
-      lockList,
-      unlockList
     } = this.props;
     const { title, id: listId } = list;
     console.log('list items', listItems)

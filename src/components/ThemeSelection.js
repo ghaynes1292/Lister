@@ -39,7 +39,7 @@ class ColorPicker extends React.Component {
   }
 
   render() {
-    const { user, theme } = this.props;
+    const { theme } = this.props;
     return (
       <div>
         <Button

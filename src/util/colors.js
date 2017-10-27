@@ -74,6 +74,8 @@ export const convertColorToPalette = (color) => {
       return { palette: red, hex: red[500] };
     case 'yellow':
       return { palette: yellow, hex: yellow[500] };
+    default:
+      return { palette: blue, hex: blue[500] };
   }
 }
 
@@ -105,7 +107,9 @@ const rgbToHex = (r, g, b) => {
 }
 
 const rgbToHsl = (r, g, b) => {
-  r /= 255, g /= 255, b /= 255;
+  r /= 255;
+  g /= 255;
+  b /= 255;
 
   var max = Math.max(r, g, b), min = Math.min(r, g, b);
   var h, s, l = (max + min) / 2;

@@ -9,7 +9,7 @@ const styles = theme => ({
 });
 
 function AddListButton(props) {
-  const { classes, addList, user } = props;
+  const { addList, user } = props;
   return (
     <Button fab color="primary" aria-label="add" onClick={() => addList(user.id)}>
       <Icon>add</Icon>

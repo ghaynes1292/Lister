@@ -9,7 +9,6 @@ import Hidden from 'material-ui/Hidden';
 import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import Avatar from 'material-ui/Avatar';
 
 import ListListContainer from '../containers/ListListContainer';
 import ThemeSelectionContainer from '../containers/ThemeSelectionContainer';
@@ -96,7 +95,7 @@ class ListDrawer extends React.Component {
   }
 
   render() {
-    const { classes, children, user, userAuth } = this.props;
+    const { classes, children, userAuth } = this.props;
 
     const drawer = (
       <div className={classes.drawerContainer}>

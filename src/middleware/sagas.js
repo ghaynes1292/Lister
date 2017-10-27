@@ -3,7 +3,7 @@ import find from 'lodash/find';
 import omit from 'lodash/omit';
 
 import { saveUser } from '../util/storageUtil';
-import { fbPersistLists, fbPersistListItems, fbPersistTheme, fbPersistListItem } from '../util/firebase';
+import { fbPersistLists, fbPersistListItems, fbPersistListItem } from '../util/firebase';
 import {
   ADD_LIST,
   ADD_LIST_ITEM,
@@ -92,15 +92,6 @@ function* persistListItemUpdate(action) {
   try {
     console.log('action here', action)
     fbPersistListItem(omit(action.payload, 'listId'))
-  } catch(e) {
-    yield e
-  }
-}
-
-function* persistTheme() {
-  try {
-    const theme = yield select(state => state.theme)
-    fbPersistTheme(theme)
   } catch(e) {
     yield e
   }

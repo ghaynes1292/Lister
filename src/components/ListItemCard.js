@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classnames from 'classnames';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Collapse from 'material-ui/transitions/Collapse';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
@@ -94,6 +94,7 @@ class RecipeReviewCard extends React.Component {
         case 0: cardBackground = 'rgba(255, 0, 0, .2)';break;
         case 1: cardBackground = 'rgba(211,211,211, .2)';break;
         case 2: cardBackground = 'rgba(0, 128, 0, .2)';break;
+        default: cardBackground = 'rgba(211,211,211, .2)';break;
       }
     } else {
       cardBackground = ''
