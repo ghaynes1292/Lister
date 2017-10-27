@@ -95,7 +95,7 @@ class SelectedList extends Component {
       unlockList
     } = this.props;
     const { title, id: listId } = list;
-
+    console.log('list items', listItems)
     return <div>
       <Grid container spacing={0}>
         <Grid item xs={8} lg={7} >

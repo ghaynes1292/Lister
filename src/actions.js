@@ -55,9 +55,9 @@ export const updateListTitle = (title, listId) => ({ type: UPDATE_LIST_TITLE, ti
 export const addListItem = (listId, attributes) => ({ type: ADD_LIST_ITEM, id: uuidv4(), createdAt: moment().format(), listId, attributes })
 export const deleteListItem = (id, listId) => ({ type: DELETE_LIST_ITEM, id, listId })
 export const updateListItem = (id, item, listId) => ({ type: UPDATE_LIST_ITEM, id, item, listId })
-export const fetchCompleteListItem = (id, attributes, listId) => ({
+export const fetchCompleteListItem = (id, attributes, listId, createdAt) => ({
   type: FETCH_COMPLETE_LIST_ITEM,
-  payload: fetchCompleteListItemApi(id, attributes, listId)
+  payload: fetchCompleteListItemApi(id, attributes, listId, createdAt)
 })
 
 
