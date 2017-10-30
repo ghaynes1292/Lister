@@ -9,7 +9,15 @@ import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 import { getUser } from '../util/storageUtil';
 
 const createTheme = (themeOptions = getUser().theme) => createMuiTheme({
-  ...themeOptions
+  ...themeOptions,
+  overrides: {
+    MuiIconButton: {
+      root: {
+        height: 30,
+        width: 30
+      }
+    }
+  }
 });
 
 // Configure JSS

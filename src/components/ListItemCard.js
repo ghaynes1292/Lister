@@ -21,7 +21,6 @@ const styles = theme => ({
   card: {
     maxWidth: 400,
     transition: 'all .3s linear',
-    // }
   },
   media: {
     height: 400

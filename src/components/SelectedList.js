@@ -5,12 +5,15 @@ import Grid from 'material-ui/Grid';
 import DeleteSweep from 'material-ui-icons/DeleteSweep';
 import LockOutline from 'material-ui-icons/LockOutline';
 import LockOpen from 'material-ui-icons/LockOpen';
+import ListIcon from 'material-ui-icons/List';
+import ViewListIcon from 'material-ui-icons/ViewList';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import moment from 'moment';
 
 import TitleInput from './TitleInput';
-import ListItemCard from './ListItemCard'
+import ListItemCard from './ListItemCard';
+import ListItemSmall from './ListItemSmall';
 import AutoSuggestInput from './AutoSuggestInput';
 import FilterContainer from '../containers/FilterContainer';
 
@@ -20,6 +23,11 @@ const styles = theme => ({
     paddingBottom: 16,
     marginTop: theme.spacing.unit * 3,
   }),
+  gridType: {
+    textAlign: 'left',
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
   filter: {
     textAlign: 'right',
     paddingTop: 5,
@@ -28,6 +36,10 @@ const styles = theme => ({
 });
 
 class SelectedList extends Component {
+  state = {
+    displayGrid: true
+  }
+
   handleDelete(id) {
     const { deleteListItem, list } = this.props;
     deleteListItem(id, list.id);
@@ -90,6 +102,7 @@ class SelectedList extends Component {
       addListItem,
       deleteList,
     } = this.props;
+    const { displayGrid } = this.state;
     const { title, id: listId } = list;
     console.log('list items', listItems)
     return <div>
@@ -113,20 +126,36 @@ class SelectedList extends Component {
       <AutoSuggestInput
         addListItem={(attributes) => addListItem(listId, attributes)}
       />
-      <div className={classes.filter}>
-        <FilterContainer />
-      </div>
+      <Grid container spacing={8}>
+        <Grid item xs={7}>
+          <IconButton onClick={() => this.setState({ displayGrid: !displayGrid })}>
+            {displayGrid ? <ListIcon /> : <ViewListIcon />}
+          </IconButton>
+        </Grid>
+        <Grid item xs={5}>
+          <FilterContainer />
+        </Grid>
+      </Grid>
       {listItems.length > 0
         ? <Grid container spacing={8}>
             {listItems.map((item, index) =>
               <Grid item xs={12} lg={4} key={item.id}>
-                <ListItemCard
-                  item={item}
-                  deleteListItem={() => this.handleDelete(item.id)}
-                  setWatched={() => this.handleWatched(index)}
-                  setLiked={() => this.handleLikeDislike(index, 2)}
-                  setDisliked={() => this.handleLikeDislike(index, 0)}
-                />
+                {displayGrid
+                  ? <ListItemCard
+                    item={item}
+                    deleteListItem={() => this.handleDelete(item.id)}
+                    setWatched={() => this.handleWatched(index)}
+                    setLiked={() => this.handleLikeDislike(index, 2)}
+                    setDisliked={() => this.handleLikeDislike(index, 0)}
+                  />
+                  : <ListItemSmall
+                    item={item}
+                    deleteListItem={() => this.handleDelete(item.id)}
+                    setWatched={() => this.handleWatched(index)}
+                    setLiked={() => this.handleLikeDislike(index, 2)}
+                    setDisliked={() => this.handleLikeDislike(index, 0)}
+                  />
+                }
               </Grid>
             )}
         </Grid>
