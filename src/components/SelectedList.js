@@ -5,8 +5,6 @@ import Grid from 'material-ui/Grid';
 import DeleteSweep from 'material-ui-icons/DeleteSweep';
 import LockOutline from 'material-ui-icons/LockOutline';
 import LockOpen from 'material-ui-icons/LockOpen';
-import ListIcon from 'material-ui-icons/List';
-import ViewListIcon from 'material-ui-icons/ViewList';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import moment from 'moment';
@@ -15,7 +13,7 @@ import TitleInput from './TitleInput';
 import ListItemCard from './ListItemCard';
 import ListItemSmall from './ListItemSmall';
 import AutoSuggestInput from './AutoSuggestInput';
-import FilterContainer from '../containers/FilterContainer';
+import ListHeaderContainer from '../containers/ListHeaderContainer';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -36,10 +34,6 @@ const styles = theme => ({
 });
 
 class SelectedList extends Component {
-  state = {
-    displayGrid: true
-  }
-
   handleDelete(id) {
     const { deleteListItem, list } = this.props;
     deleteListItem(id, list.id);
@@ -94,7 +88,7 @@ class SelectedList extends Component {
   }
 
   renderSelectedList () {
-    const { classes,
+    const {
       list,
       listItems,
       user,
@@ -102,9 +96,8 @@ class SelectedList extends Component {
       addListItem,
       deleteList,
     } = this.props;
-    const { displayGrid } = this.state;
     const { title, id: listId } = list;
-    console.log('list items', listItems)
+
     return <div>
       <Grid container spacing={0}>
         <Grid item xs={8} lg={7} >
@@ -126,21 +119,12 @@ class SelectedList extends Component {
       <AutoSuggestInput
         addListItem={(attributes) => addListItem(listId, attributes)}
       />
-      <Grid container spacing={8}>
-        <Grid item xs={7}>
-          <IconButton onClick={() => this.setState({ displayGrid: !displayGrid })}>
-            {displayGrid ? <ListIcon /> : <ViewListIcon />}
-          </IconButton>
-        </Grid>
-        <Grid item xs={5}>
-          <FilterContainer />
-        </Grid>
-      </Grid>
+      <ListHeaderContainer />
       {listItems.length > 0
         ? <Grid container spacing={8}>
             {listItems.map((item, index) =>
               <Grid item xs={12} lg={4} key={item.id}>
-                {displayGrid
+                {user && user.view === 'GRID'
                   ? <ListItemCard
                     item={item}
                     deleteListItem={() => this.handleDelete(item.id)}

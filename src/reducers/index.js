@@ -6,14 +6,14 @@ import { orange, blueGrey } from 'material-ui/colors';
 import { getUser } from '../util/storageUtil';
 import {
   ASCENDING,
-  ADDED
+  ADDED,
+  GRID
 } from '../util/filter'
 
 import lists from './list';
 import listItems from './listItem';
 import users from './users'
 import userAuth from './userAuth'
-import filter from './filter';
 
 export const makeList = (userId = null, id = uuidv4()) => ({
   [id]: {
@@ -58,7 +58,12 @@ export const newUser = (user, id = uuidv4()) => ({
   name: user ? user.displayName : 'Anonymous',
   lists: [],
   theme: newTheme(),
-  selectedList: null
+  selectedList: null,
+  view: GRID,
+  filter: {
+    direction: ASCENDING,
+    type: ADDED
+  }
 });
 
 const cachedUser = getUser();
@@ -71,18 +76,13 @@ export const initialState = {
     [currentUser.id]: currentUser
   },
   userAuth: currentUser,
-  filter: {
-    direction: ASCENDING,
-    type: ADDED
-  }
 };
 
 const rootReducer = combineReducers({
   listItems,
   lists,
   userAuth,
-  users,
-  filter
+  users
 })
 
 export default rootReducer

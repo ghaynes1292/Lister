@@ -22,7 +22,6 @@ export const fbPersistListItems = (listItems) => {
 }
 
 export const fbPersistListItem = (listItem) => {
-  console.log('about to persist list item', listItem)
   firebase.database().ref('listItems/' + listItem.id).set(listItem);
 }
 

@@ -18,12 +18,14 @@ const styles = theme => ({
 class Filter extends React.Component {
   handleChange (e) {
     const { updateFilter } = this.props;
-    updateFilter({ type: e.target.value })
+    updateFilter(e.target.value)
   }
 
   render() {
+    const { filter } = this.props;
+
     return <Select
-      value={this.props.filter.type}
+      value={filter.type}
       onChange={(e) => this.handleChange(e)}
       input={<Input id="age-simple" />}
     >

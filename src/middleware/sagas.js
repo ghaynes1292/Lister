@@ -90,7 +90,6 @@ function* persistListItem(action) {
 
 function* persistListItemUpdate(action) {
   try {
-    console.log('action here', action)
     fbPersistListItem(omit(action.payload, 'listId'))
   } catch(e) {
     yield e

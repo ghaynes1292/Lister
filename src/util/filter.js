@@ -8,4 +8,7 @@ export const RELEASE = 'attributes.Released';
 export const ASCENDING = 'ASCENDING';
 export const DESCENDING = 'DESCENDING';
 
+export const GRID = 'GRID';
+export const LIST = 'LIST';
+
 export const getSortable = (type, obj) => type !== TITLE ? moment(obj) : obj
