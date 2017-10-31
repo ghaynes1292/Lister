@@ -25,7 +25,7 @@ class Filter extends React.Component {
     const { filter } = this.props;
 
     return <Select
-      value={filter.type}
+      value={filter ? filter.type : ADDED}
       onChange={(e) => this.handleChange(e)}
       input={<Input id="age-simple" />}
     >
