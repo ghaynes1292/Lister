@@ -67,6 +67,12 @@ class SelectedList extends Component {
     updateListItem(listItems[index].id, newListItem, list.id)
   }
 
+  handleNoteChange (e, item) {
+    const { list, updateListItem } = this.props;
+
+    updateListItem(item.id, { ...item, attributes: { ...item.attributes, notes: e.target.value } }, list.id)
+  }
+
   renderNoneSelected () {
     return <Grid container justify="center">
       <Grid item xs={11} lg={8}>
@@ -95,6 +101,7 @@ class SelectedList extends Component {
       updateListTitle,
       addListItem,
       deleteList,
+      fetchCompleteListItem
     } = this.props;
     const { title, id: listId } = list;
 
@@ -131,6 +138,8 @@ class SelectedList extends Component {
                     setWatched={() => this.handleWatched(index)}
                     setLiked={() => this.handleLikeDislike(index, 2)}
                     setDisliked={() => this.handleLikeDislike(index, 0)}
+                    refreshListItem={() => fetchCompleteListItem(item, list.id)}
+                    updateNote={(e) => this.handleNoteChange(e, item)}
                   />
                   : <ListItemSmall
                     item={item}

@@ -6,12 +6,14 @@ import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Collapse from 'material-ui/transitions/Collapse';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
+import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
 import DoneIcon from 'material-ui-icons/Done';
 import ThumbUp from 'material-ui-icons/ThumbUp';
 import ThumbDown from 'material-ui-icons/ThumbDown';
 import ClearIcon from 'material-ui-icons/Clear';
+import ReplayIcon from 'material-ui-icons/Replay';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import Grid from 'material-ui/Grid';
 import moment from 'moment';
@@ -86,7 +88,7 @@ class RecipeReviewCard extends React.Component {
   }
 
   render() {
-    const { classes, item, deleteListItem, setWatched, setLiked, setDisliked } = this.props;
+    const { classes, item, deleteListItem, setWatched, setLiked, setDisliked, refreshListItem, updateNote } = this.props;
     let cardBackground;
     if (item.attributes.completed) {
       switch(item.attributes.liked) {
@@ -119,13 +121,16 @@ class RecipeReviewCard extends React.Component {
             <IconButton aria-label="Like" onClick={setLiked}>
               <ThumbUp color={item.attributes.liked === 2 ? 'green' : 'grey'}/>
             </IconButton>
-            <IconButton aria-label="Add to favorites" onClick={setWatched}>
+            <IconButton aria-label="Set Watched" onClick={setWatched}>
               <DoneIcon color={item.attributes.completed ? 'green' : 'grey'} />
             </IconButton>
-            <IconButton aria-label="Add to favorites" onClick={deleteListItem}>
+            <IconButton aria-label="Clear" onClick={deleteListItem}>
               <ClearIcon />
             </IconButton>
             <div className={classes.flexGrow} />
+            <IconButton aria-label="Refresh Data" onClick={refreshListItem}>
+              <ReplayIcon />
+            </IconButton>
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,
@@ -150,6 +155,18 @@ class RecipeReviewCard extends React.Component {
                 <strong style={{ fontWeight: 500 }}>{Source} : </strong>{Value}
               </Typography>
               )}
+            </CardContent>
+            <CardContent>
+              <TextField
+                multiline
+                fullWidth
+                rows={1}
+                rowsMax={8}
+                value={item.attributes.notes}
+                onChange={updateNote}
+                label='Notes'
+                placeholder='Add some notes'
+              />
             </CardContent>
             <CardContent>
               {this.renderField(['Plot'], 'body1', 'Plot')}

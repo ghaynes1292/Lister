@@ -46,6 +46,7 @@ export const makeListItem = (id, createdAt, attributes = {}) => {
         completed: false,
         id: null,
         liked: 1,
+        notes: '',
         ...attributes
       }
     }
