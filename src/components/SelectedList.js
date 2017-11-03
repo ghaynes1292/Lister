@@ -67,10 +67,10 @@ class SelectedList extends Component {
     updateListItem(listItems[index].id, newListItem, list.id)
   }
 
-  handleNoteChange (e, item) {
+  handleNoteChange (value, item) {
     const { list, updateListItem } = this.props;
-
-    updateListItem(item.id, { ...item, attributes: { ...item.attributes, notes: e.target.value } }, list.id)
+    console.log('update note', value)
+    updateListItem(item.id, { ...item, attributes: { ...item.attributes, notes: value } }, list.id)
   }
 
   renderNoneSelected () {
@@ -139,7 +139,7 @@ class SelectedList extends Component {
                     setLiked={() => this.handleLikeDislike(index, 2)}
                     setDisliked={() => this.handleLikeDislike(index, 0)}
                     refreshListItem={() => fetchCompleteListItem(item, list.id)}
-                    updateNote={(e) => this.handleNoteChange(e, item)}
+                        updateNote={(value) => this.handleNoteChange(value, item)}
                   />
                   : <ListItemSmall
                     item={item}

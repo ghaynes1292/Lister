@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import classnames from 'classnames';
+import moment from 'moment';
+import without from 'lodash/without'
+
 import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Collapse from 'material-ui/transitions/Collapse';
 import Avatar from 'material-ui/Avatar';
@@ -16,8 +19,9 @@ import ClearIcon from 'material-ui-icons/Clear';
 import ReplayIcon from 'material-ui-icons/Replay';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import Grid from 'material-ui/Grid';
-import moment from 'moment';
-import without from 'lodash/without'
+
+import NotesDialog from './NotesDialog';
+
 
 const styles = theme => ({
   card: {
@@ -155,21 +159,13 @@ class RecipeReviewCard extends React.Component {
                 <strong style={{ fontWeight: 500 }}>{Source} : </strong>{Value}
               </Typography>
               )}
-            </CardContent>
-            <CardContent>
-              <TextField
-                multiline
-                fullWidth
-                rows={1}
-                rowsMax={8}
-                value={item.attributes.notes}
-                onChange={updateNote}
-                label='Notes'
-                placeholder='Add some notes'
-              />
-            </CardContent>
-            <CardContent>
               {this.renderField(['Plot'], 'body1', 'Plot')}
+            </CardContent>
+            <CardContent>
+            <NotesDialog
+              notes={item.attributes.notes}
+              saveNotes={updateNote}
+            />
             </CardContent>
           </Collapse>
         </Card>
