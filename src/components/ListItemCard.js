@@ -9,7 +9,6 @@ import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Collapse from 'material-ui/transitions/Collapse';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
 import DoneIcon from 'material-ui-icons/Done';

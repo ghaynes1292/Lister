@@ -1,7 +1,6 @@
 import pick from 'lodash/pick';
 import without from 'lodash/without';
 import find from 'lodash/find';
-import concat from 'lodash/concat';
 
 import { imdbFields } from './constants';
 
